@@ -8,6 +8,7 @@ import Login from "./pages/login/Login.js";
 import RouterError from "./pages/Error/RouterError.js";
 //Shopper Page
 import Homepage from "./pages/Shopper/Homepage/Homepage.js";
+import CategoryPage from "./pages/Shopper/CategoryPage/CategoryPage.js";
 
 function Router() {
   return (
@@ -20,6 +21,7 @@ function Router() {
         <Route element={<RequireAuth allowedRoles={["shopper"]} />}>
           {/*Shop */}
           <Route path="/" element={<Homepage />} />
+          <Route path="/category/:categoryName" element={<CategoryPage />} />
         </Route>
       </Route>
 

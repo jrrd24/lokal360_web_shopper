@@ -345,6 +345,14 @@ const theme = createTheme({
         overflow: "hidden",
         width: 180,
       },
+
+      large: {
+        padding: 0,
+        borderRadius: "10px",
+        overflow: "hidden",
+        width: "95%",
+        maxWidth: 315,
+      },
     },
   },
 });

@@ -34,6 +34,7 @@ function MapData({
   condition,
   nullMessage,
   nullImg,
+  containerStyles,
 }) {
   const filteredData = condition ? inputData.filter(condition) : inputData;
   let showLimit = 1;
@@ -65,7 +66,7 @@ function MapData({
       {showLimit.length > 0 ? (
         showLimit.map((data) => (
           <div key={data[idName]} style={{ marginTop: horizontal ? 15 : 0 }}>
-            <Component data={data} />
+            <Component data={data} containerStyles={containerStyles} />
           </div>
         ))
       ) : (

@@ -43,7 +43,13 @@ const CustomAppbar = React.memo(({ component: MainComponent }, props) => {
     <React.Fragment>
       <CssBaseline />
       <HideOnScroll {...props}>
-        <AppBar>
+        <AppBar
+          sx={{
+            backgroundColor: theme.palette.background.paper,
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
           <Toolbar
             sx={{
               backgroundColor: theme.palette.background.paper,

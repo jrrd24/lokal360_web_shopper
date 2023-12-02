@@ -26,7 +26,7 @@ function Searchbar() {
       <InputBase
         name="searchBar"
         sx={{ ...classes.searchInput }}
-        placeholder="Find Your Products"
+        placeholder="Find What You Need"
         value={searchValue}
         onChange={handleInputChange}
         onKeyDown={handleEnterKey}
