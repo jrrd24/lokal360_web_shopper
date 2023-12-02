@@ -1,0 +1,62 @@
+/*Avatar Size*/
+.avatar {
+    filter: drop-shadow(0px 3px 3px rgba(0, 0, 0, 0.25));
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: transform;
+    transition-property: transform;
+    background-color: #FFF;
+}
+
+.avatar:hover,
+.avatar:focus,
+.avatar:active {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+/*Title Font Style*/
+.title {
+    color: #444;
+    text-align: center;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 30px;
+    /* 100% */
+}
+
+/*Grow Hover Effect*/
+.grow {
+    display: inline-block;
+    vertical-align: middle;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0);
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    transition-delay: 0s;
+}
+
+.grow:hover,
+.grow:focus,
+.grow:active {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+    transition-delay: 0.0s;
+}
+
+
+.changeBG {
+    transition: background-color 0.3s, opacity 0.3s;
+    border-radius: 10;
+}
+
+.changeBG:hover,
+.changeBG:focus,
+.changeBG:active {
+    background-color: #EFEFFB;
+}

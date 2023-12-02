@@ -1,0 +1,18 @@
+/* scrollbar.css */
+/* Modify scrollbar width and color for the custom class */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+/* Modify scrollbar thumb (the draggable part) for the custom class */
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #6E5FDE99;
+    border-radius: 5px;
+}
+
+/* Modify scrollbar track (the non-draggable part) for the custom class */
+.custom-scrollbar::-webkit-scrollbar-track {
+    background-color: #F8F7FD;
+    border-radius: 5px;
+}
