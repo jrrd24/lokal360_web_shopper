@@ -11,14 +11,20 @@ export function useRequestProcessor() {
     });
   }
 
-  function useCustomMutate(key, mutationFunction, invalidateKeys, options = {}) {
+  function useCustomMutate(
+    key,
+    mutationFunction,
+    invalidateKeys,
+    options = {}
+  ) {
     return useMutation({
       mutationKey: key,
       mutationFn: mutationFunction,
-      onSettled: () => invalidateKeys.forEach(key => queryClient.invalidateQueries(key)),
+      onSettled: () =>
+        invalidateKeys.forEach((key) => queryClient.invalidateQueries(key)),
       ...options,
     });
   }
 
-  return { useCustomQuery, useCustomMutate };
+  return { useCustomQuery, useCustomMutate, queryClient };
 }

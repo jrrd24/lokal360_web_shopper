@@ -21,6 +21,7 @@ const useRefreshToken = () => {
           roles: response.data.roles,
           accessToken: response.data.accessToken,
           userID: response.data.userID,
+          shopperID: response.data.shopperID,
           shopID: response.data.shopID,
           employeePriviledges: response.data.employeePriviledges,
         };

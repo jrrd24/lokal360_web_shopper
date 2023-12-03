@@ -51,6 +51,7 @@ const LoginForm = ({ loginOnly }) => {
         const accessToken = response?.data?.accessToken;
         const roles = response?.data.roles;
         const userID = response?.data.userID;
+        const shopperID = response?.data.shopperID;
         const shopID = response?.data.shopID;
         const employeePriviledges = response?.data.employeePriviledges;
         console.log(userID);
@@ -59,6 +60,7 @@ const LoginForm = ({ loginOnly }) => {
           password,
           roles,
           userID,
+          shopperID,
           shopID,
           accessToken,
           employeePriviledges,
@@ -67,6 +69,7 @@ const LoginForm = ({ loginOnly }) => {
           payload,
           roles,
           userID,
+          shopperID,
           shopID,
           accessToken,
           employeePriviledges,

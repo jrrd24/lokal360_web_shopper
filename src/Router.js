@@ -4,24 +4,29 @@ import RouterUnauthorized from "./pages/Error/RouterUnauthorized.js";
 import PersistLogin from "./components/ForRoute/PersistLogin.js";
 //Login Page
 import Login from "./pages/login/Login.js";
+//Profile Page
+import Profile from "./pages/Profile/Profile.js"
 //Error Page
 import RouterError from "./pages/Error/RouterError.js";
 //Shopper Page
 import Homepage from "./pages/Shopper/Homepage/Homepage.js";
 import CategoryPage from "./pages/Shopper/CategoryPage/CategoryPage.js";
+import ShopPage from "./pages/Shopper/ShopPage/ShopPage.js";
+
 
 function Router() {
   return (
     <Routes>
       {/*Login */}
       <Route path="/login" element={<Login />} />
-
+      <Route path="/profile/" element={<Profile />} />
       {/*Secured Routes */}
       <Route element={<PersistLogin />}>
         <Route element={<RequireAuth allowedRoles={["shopper"]} />}>
           {/*Shop */}
           <Route path="/" element={<Homepage />} />
           <Route path="/category/:categoryName" element={<CategoryPage />} />
+          <Route path="/shop/:shopID" element={<ShopPage />} />
         </Route>
       </Route>
 

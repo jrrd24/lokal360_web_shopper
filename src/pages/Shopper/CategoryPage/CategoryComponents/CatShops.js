@@ -23,7 +23,6 @@ function CatShops({ categoryName }) {
     return <LoadingCircle />;
   }
 
-  console.log(shopData);
   return (
     <Box
       sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}

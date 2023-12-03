@@ -1,22 +1,22 @@
 import React from "react";
-import { Box, useMediaQuery } from "@mui/material";
-import Carousel from "react-material-ui-carousel";
 import { useRequestProcessor } from "../../../../hooks/useRequestProcessor";
 import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
+import {  Box, useMediaQuery } from "@mui/material";
+import Carousel from "react-material-ui-carousel";
 import { LoadingCircle } from "../../../../components/Loading/Loading";
 import { BASE_URL } from "../../../../api/Api";
 
-function ActiveAds() {
+function ShopAds({ selectedShopID }) {
   const useIsMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
-  //API CALL GET ALL ACTIVE SITEWIDE ADS
+  // API CALL GET ALL ACTIVE LOKAL ADS
   const { useCustomQuery } = useRequestProcessor();
   const axiosPrivate = useAxiosPrivate();
 
   const { data: adData, isLoading } = useCustomQuery(
-    "getActiveSitewideAds",
+    "getActiveShopAds",
     () =>
       axiosPrivate
-        .get(`/api/shopper_get/active_sitewide_ads`)
+        .get(`/api/ad/get_active_shop_ads/?shopID=${selectedShopID}`)
         .then((res) => res.data),
     { enabled: true }
   );
@@ -81,4 +81,4 @@ function ActiveAds() {
   );
 }
 
-export default ActiveAds;
+export default ShopAds;

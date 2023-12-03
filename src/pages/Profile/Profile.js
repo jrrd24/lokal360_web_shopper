@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import ProfileContent from "./ProfileContent";
-import ShopSidebar from "../../components/Sidebar/ShopSidebar";
+import CustomAppbar from "../../components/Appbar/CustomAppbar";
 
 const Profile = React.memo(() => {
   //Set Page Title
@@ -12,7 +12,7 @@ const Profile = React.memo(() => {
     };
   }, []);
 
-  return <ShopSidebar component={() => <ProfileContent />} />;
+  return <CustomAppbar component={() => <ProfileContent />} />;
 });
 
 export default Profile;

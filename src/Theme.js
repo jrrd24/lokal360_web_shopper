@@ -56,6 +56,12 @@ const theme = createTheme({
       color: "#444",
       letterSpacing: -0.3,
     },
+    sectionTitleBig: {
+      fontSize: "28px",
+      fontWeight: 600,
+      color: "#444",
+      letterSpacing: -0.3,
+    },
     sectionTitleSmall: {
       fontSize: "18px",
       fontWeight: 600,
