@@ -138,6 +138,19 @@ const classes = {
     "@media (max-width: 900px)": { width: "100%" },
     textAlign: "left",
   },
+  tab: {
+    color: "inherit",
+    fontSize: 18,
+    textAlign: "center",
+  },
+
+  tabs: {
+    height: 50,
+    width: "100%",
+    backgroundColor: `${theme.palette.background.paper}`,
+    borderRadius: 5,
+    mt: 2,
+  },
 };
 
 function TabsContainer({ value, handleChange }) {

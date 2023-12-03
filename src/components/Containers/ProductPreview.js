@@ -61,7 +61,7 @@ function ProductPreview({ data }) {
               <StarHalf sx={{ ...classes.star }} />
               <Typography sx={{ fontSize: "inherit" }}>
                 <span style={{ ...classes.prodDetailBig }}>
-                  {rating !== 0 ? rating.toFixed(2) : "N/A"}
+                  {rating !== 0 ? rating.toFixed(1) : "N/A"}
                 </span>
                 /5 | <b>{amtSold || 0}</b> Sold
               </Typography>

@@ -5,14 +5,14 @@ import PersistLogin from "./components/ForRoute/PersistLogin.js";
 //Login Page
 import Login from "./pages/login/Login.js";
 //Profile Page
-import Profile from "./pages/Profile/Profile.js"
+import Profile from "./pages/Profile/Profile.js";
 //Error Page
 import RouterError from "./pages/Error/RouterError.js";
 //Shopper Page
 import Homepage from "./pages/Shopper/Homepage/Homepage.js";
 import CategoryPage from "./pages/Shopper/CategoryPage/CategoryPage.js";
 import ShopPage from "./pages/Shopper/ShopPage/ShopPage.js";
-
+import ProductPage from "./pages/Shopper/ProductPage/ProductPage.js";
 
 function Router() {
   return (
@@ -27,6 +27,7 @@ function Router() {
           <Route path="/" element={<Homepage />} />
           <Route path="/category/:categoryName" element={<CategoryPage />} />
           <Route path="/shop/:shopID" element={<ShopPage />} />
+          <Route path="/product/:productID" element={<ProductPage />} />
         </Route>
       </Route>
 

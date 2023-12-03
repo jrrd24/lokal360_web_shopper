@@ -7,8 +7,6 @@ import { CalendarMonth, Language, Phone } from "@mui/icons-material";
 import dayjs from "dayjs";
 
 function AboutUs({ data }) {
-  console.log("DAT", data);
-
   const days = [
     { name: "Mon", value: data.is_open_mon },
     { name: "Tue", value: data.is_open_tues },
