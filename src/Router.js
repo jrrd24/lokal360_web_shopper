@@ -13,6 +13,8 @@ import Homepage from "./pages/Shopper/Homepage/Homepage.js";
 import CategoryPage from "./pages/Shopper/CategoryPage/CategoryPage.js";
 import ShopPage from "./pages/Shopper/ShopPage/ShopPage.js";
 import ProductPage from "./pages/Shopper/ProductPage/ProductPage.js";
+import Cart from "./pages/Shopper/Cart/Cart.js";
+import Checkout from "./pages/Shopper/Checkout/Checkout.js";
 
 function Router() {
   return (
@@ -28,6 +30,8 @@ function Router() {
           <Route path="/category/:categoryName" element={<CategoryPage />} />
           <Route path="/shop/:shopID" element={<ShopPage />} />
           <Route path="/product/:productID" element={<ProductPage />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
         </Route>
       </Route>
 

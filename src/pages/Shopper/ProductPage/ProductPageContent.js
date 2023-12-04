@@ -1,14 +1,6 @@
-import {
-  Box,
-  Stack,
-  Tab,
-  Tabs,
-  Typography,
-  useMediaQuery,
-} from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { Box, Stack, useMediaQuery } from "@mui/material";
+import React, { useEffect } from "react";
 import theme from "../../../Theme";
-import PropTypes from "prop-types";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import { useRequestProcessor } from "../../../hooks/useRequestProcessor";
 import { LoadingCircle } from "../../../components/Loading/Loading";
@@ -16,15 +8,25 @@ import Error404 from "../../../components/Loading/Error404";
 import { BASE_URL } from "../../../api/Api";
 import ProductImage from "./ProductPageComponents/ProductImage";
 import ProductInfo from "./ProductPageComponents/ProductInfo";
+import CustomAlert from "../../../components/CustomAlert";
+import useAlert from "../../../hooks/useAlert";
 
 function ProductPageContent({ selectedProductID, setProductName }) {
   const useIsMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
   const { useCustomQuery } = useRequestProcessor();
   const axiosPrivate = useAxiosPrivate();
-  //for tabs
-  const [value, setValue] = useState(0);
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+
+  // FOR ALERT
+  const {
+    open: openAlert,
+    severity,
+    alertMsg,
+    showAlert,
+    hideAlert,
+  } = useAlert();
+
+  const handleShowAlert = (severity, alertMsg) => {
+    showAlert(severity, alertMsg);
   };
 
   // API CALL GET PRODUCT DATA
@@ -37,6 +39,7 @@ function ProductPageContent({ selectedProductID, setProductName }) {
     { enabled: true }
   );
 
+  //TODO: if may time display lahat ng reviews sa baba ng add to cart (100% width)
   const {
     data: reviewData,
     isLoadingReview,
@@ -67,29 +70,10 @@ function ProductPageContent({ selectedProductID, setProductName }) {
     return <LoadingCircle />;
   }
 
-  const {
-    productID,
-    product_name,
-    total_sales,
-    amountSold,
-    number_of_variations,
-    description,
-    promoID,
-    rating,
-    variations,
-    Category: { category_name: productCategory },
-    ShopCategory,
-    ProductImages: Images,
-    Promo: promoData,
-    ProductVariations,
-    VoucherAppliedProducts,
-  } = data || {};
-
-  console.log();
+  const { ProductImages: Images } = data || {};
 
   const product_thumbnail =
     Images.length > 0 ? `${BASE_URL}/${Images[0].prod_image}` : null;
-  const shopCategory = ShopCategory ? ShopCategory.shop_category_name : 0;
 
   return (
     <div>
@@ -102,17 +86,22 @@ function ProductPageContent({ selectedProductID, setProductName }) {
             />
             <Box sx={{ width: "100%" }}>
               <ProductInfo
-                TabsContainer={TabsContainer}
-                CustomTabPanel={CustomTabPanel}
-                value={value}
-                handleChange={handleChange}
                 data={data}
                 selectedProductID={selectedProductID}
+                showAlert={handleShowAlert}
               />
             </Box>
           </Stack>
         </Box>
       </Box>
+
+      {/*Display Alert */}
+      <CustomAlert
+        open={openAlert}
+        setOpen={hideAlert}
+        severity={severity}
+        alertMsg={alertMsg}
+      />
     </div>
   );
 }
@@ -143,63 +132,5 @@ const classes = {
     mt: 2,
   },
 };
-
-function TabsContainer({ value, handleChange }) {
-  return (
-    <Tabs
-      value={value}
-      onChange={handleChange}
-      indicatorColor="primary"
-      textColor="inherit"
-      variant="fullWidth"
-      sx={{ ...classes.tabs }}
-    >
-      <Tab
-        label={
-          <Typography variant="sectionTitleSmall" sx={{ ...classes.tab }}>
-            Details
-          </Typography>
-        }
-        {...a11yProps(0)}
-      />
-      <Tab
-        label={
-          <Typography variant="sectionTitleSmall" sx={{ ...classes.tab }}>
-            Reviews
-          </Typography>
-        }
-        {...a11yProps(1)}
-      />
-    </Tabs>
-  );
-}
-function CustomTabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && <Box>{children}</Box>}
-    </div>
-  );
-}
-
-CustomTabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-};
-
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
-  };
-}
 
 export default ProductPageContent;

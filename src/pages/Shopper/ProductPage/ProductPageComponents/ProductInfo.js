@@ -12,23 +12,41 @@ import { Unstable_NumberInput as BaseNumberInput } from "@mui/base/Unstable_Numb
 import QuantityInput from "../../../../components/FormComponents/CustomNumberInput";
 import { ShoppingCart } from "@mui/icons-material";
 import useAuth from "../../../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
-function ProductInfo({
-  value,
-  handleChange,
-  TabsContainer,
-  CustomTabPanel,
-  selectedProductID,
-  data,
-}) {
-  const { useCustomQuery } = useRequestProcessor();
+function ProductInfo({ selectedProductID, data, showAlert }) {
+  const { useCustomQuery, useCustomMutate } = useRequestProcessor();
   const axiosPrivate = useAxiosPrivate();
   const { auth } = useAuth();
+  const navigate = useNavigate();
 
   const [selectedVariation, setSelectedVariation] = useState(0);
   const [varAmtOnHand, setVarAmtOnHand] = useState(0);
   const [qty, setQty] = useState(0);
   const [price, setPrice] = useState(0);
+
+  //API CALL ADD TO CART
+  const { mutate } = useCustomMutate(
+    "addToCart",
+    async (data) => {
+      await axiosPrivate.post(
+        `api/buy_product/add_to_cart/?shopperID=${data.shopperID}`,
+        data
+      );
+    },
+    ["getCartItems"],
+    {
+      onError: (error) => {
+        showAlert("error", error.response.data.error);
+      },
+      onMutate: () => {
+        <LoadingCircle />;
+      },
+      onSuccess: () => {
+        navigate("/cart");
+      },
+    }
+  );
 
   const handleAddToCart = () => {
     const requestData = {
@@ -38,9 +56,10 @@ function ProductInfo({
     };
 
     console.log("Add to Cart", requestData);
+    mutate(requestData);
   };
 
-  // API CALL GET PRODUCT DATA
+  // API CALL GET PRODUCT Rating
   const {
     data: ratingData,
     isLoading,
@@ -197,7 +216,7 @@ function ProductInfo({
           <Box sx={{ marginLeft: "auto" }}>
             <ButtonAddToCart
               onClickAction={handleAddToCart}
-              disable={!selectedVariation}
+              disable={!selectedVariation || !qty}
             />
           </Box>
         </Stack>
@@ -215,11 +234,6 @@ const classes = {
 };
 
 function ButtonAddToCart({ onClickAction, disable }) {
-  const handleClick = () => {
-    if (typeof onClickAction === "function") {
-      onClickAction();
-    }
-  };
   return (
     <Button
       variant="contained"

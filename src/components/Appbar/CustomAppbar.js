@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 import useAuth from "../../hooks/useAuth";
 import Searchbar from "./Searchbar";
-import { AccountCircle, MoreVert } from "@mui/icons-material";
+import { AccountCircle, MoreVert, ShoppingCart } from "@mui/icons-material";
 
 function HideOnScroll(props) {
   const { children, window } = props;
@@ -37,86 +37,107 @@ HideOnScroll.propTypes = {
   window: PropTypes.func,
 };
 
-const CustomAppbar = React.memo(({ component: MainComponent }, props) => {
-  const navigate = useNavigate();
-  return (
-    <React.Fragment>
-      <CssBaseline />
-      <HideOnScroll {...props}>
-        <AppBar
-          sx={{
-            backgroundColor: theme.palette.background.paper,
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          <Toolbar
+const CustomAppbar = React.memo(
+  ({ component: MainComponent, isCart }, props) => {
+    const navigate = useNavigate();
+    return (
+      <React.Fragment>
+        <CssBaseline />
+        <HideOnScroll {...props}>
+          <AppBar
             sx={{
               backgroundColor: theme.palette.background.paper,
-              transition: "background-color 0.3s ease",
+              display: "flex",
+              justifyContent: "center",
             }}
           >
-            {/*Branding Logo */}
-            <IconButton
-              sx={{ ...classes.brandingLogo }}
-              onClick={() => {
-                navigate("/");
-              }}
-            >
-              <img
-                src={require("../../assets/lokal360_logo_filled.png")}
-                alt="logo"
-                style={{ width: 45, height: 45 }}
-              />
-            </IconButton>
-
-            <Searchbar />
-
-            <Box sx={{ flexGrow: 1 }} />
-            <Box sx={{ display: { xs: "none", md: "flex" } }}>
-              <IconButton
-                size="large"
-                edge="end"
-                onClick={() => {
-                  navigate(`/profile/`);
-                }}
-                sx={{ color: "primary" }}
-              >
-                <AccountCircle />
-              </IconButton>
-            </Box>
-            <Box sx={{ display: { xs: "flex", md: "none" } }}>
-              {/**Add on click for mobile view */}
-              <IconButton size="large" onClick={""} sx={{ color: "primary" }}>
-                <MoreVert />
-              </IconButton>
-            </Box>
-          </Toolbar>
-        </AppBar>
-      </HideOnScroll>
-      <Toolbar />
-      <Container>
-        {/*MAIN */}
-        <Box component="main" sx={{ ...classes.mainComponentContainer }}>
-          {MainComponent && (
-            <Box
+            <Toolbar
               sx={{
-                ...classes.mainComponent,
-                p: 3,
-                "@media (max-width: 600px)": {
-                  p: 0,
-                  py: 3,
-                },
+                backgroundColor: theme.palette.background.paper,
+                transition: "background-color 0.3s ease",
               }}
             >
-              <MainComponent />
-            </Box>
-          )}
-        </Box>
-      </Container>
-    </React.Fragment>
-  );
-});
+              {/*Branding Logo */}
+              <IconButton
+                sx={{ ...classes.brandingLogo }}
+                onClick={() => {
+                  navigate("/");
+                }}
+              >
+                <img
+                  src={require("../../assets/lokal360_logo_filled.png")}
+                  alt="logo"
+                  style={{ width: 45, height: 45 }}
+                />
+              </IconButton>
+
+              <Searchbar />
+
+              <Box sx={{ flexGrow: 1 }} />
+              {/**CART AND PROFILE CONTAINER */}
+              {!isCart ? (
+                <Box sx={{ display: { xs: "none", md: "flex" } }}>
+                  {/*Cart */}
+                  <IconButton
+                    size="large"
+                    edge="end"
+                    onClick={() => {
+                      navigate(`/cart`);
+                    }}
+                    sx={{ color: "primary" }}
+                  >
+                    <ShoppingCart />
+                  </IconButton>
+
+                  {/*Profile */}
+                  <IconButton
+                    size="large"
+                    edge="end"
+                    onClick={() => {
+                      navigate(`/profile/`);
+                    }}
+                    sx={{ color: "primary" }}
+                  >
+                    <AccountCircle />
+                  </IconButton>
+                </Box>
+              ) : (
+                ""
+              )}
+
+              <Box sx={{ display: { xs: "flex", md: "none" } }}>
+                {/**Add on click for mobile view */}
+                <IconButton size="large" onClick={""} sx={{ color: "primary" }}>
+                  <MoreVert />
+                </IconButton>
+              </Box>
+            </Toolbar>
+          </AppBar>
+        </HideOnScroll>
+        <Toolbar />
+        <Container>
+          {/*MAIN */}
+          <Box component="main" sx={{ ...classes.mainComponentContainer }}>
+            {MainComponent && (
+              <Box
+                sx={{
+                  ...classes.mainComponent,
+                  p: 3,
+                  "@media (max-width: 600px)": {
+                    p: 0,
+                    py: 3,
+                  },
+                }}
+              >
+                <MainComponent />
+              </Box>
+            )}
+          </Box>
+        </Container>
+      </React.Fragment>
+    );
+  }
+);
 
 const classes = {
   brandingLogo: {

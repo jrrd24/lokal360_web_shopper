@@ -2,11 +2,10 @@ import {
   Bookmark,
   DeliveryDining,
   People,
-  Shop,
   StarHalf,
 } from "@mui/icons-material";
 import { Box, Button, Stack, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import theme from "../../../../Theme";
 import { BiShoppingBag } from "react-icons/bi";
 import { useRequestProcessor } from "../../../../hooks/useRequestProcessor";
@@ -14,7 +13,6 @@ import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
 import useAuth from "../../../../hooks/useAuth";
 import { LoadingCircle } from "../../../../components/Loading/Loading";
 import { BASE_URL } from "../../../../api/Api";
-import Zoom from "react-medium-image-zoom";
 
 function MainShopInfo({
   showAlert,
