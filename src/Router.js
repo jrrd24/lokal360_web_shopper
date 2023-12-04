@@ -15,13 +15,17 @@ import ShopPage from "./pages/Shopper/ShopPage/ShopPage.js";
 import ProductPage from "./pages/Shopper/ProductPage/ProductPage.js";
 import Cart from "./pages/Shopper/Cart/Cart.js";
 import Checkout from "./pages/Shopper/Checkout/Checkout.js";
+import MyAddresses from "./pages/ShopperTools/MyAddresses/MyAddresses.js";
+import MyOrders from "./pages/ShopperTools/MyOrders/MyOrders.js";
+import SearchResult from "./pages/Shopper/SearchResult/SearchResult.js";
+import Register from "./pages/Register/Register.js";
 
 function Router() {
   return (
     <Routes>
       {/*Login */}
       <Route path="/login" element={<Login />} />
-      <Route path="/profile/" element={<Profile />} />
+      <Route path="/register" element={<Register />} />
       {/*Secured Routes */}
       <Route element={<PersistLogin />}>
         <Route element={<RequireAuth allowedRoles={["shopper"]} />}>
@@ -32,6 +36,10 @@ function Router() {
           <Route path="/product/:productID" element={<ProductPage />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/profile/" element={<Profile />} />
+          <Route path="/profile/my_addresses" element={<MyAddresses />} />
+          <Route path="/profile/my_orders" element={<MyOrders />} />
+          <Route path="/search/:query" exact element={<SearchResult />} />
         </Route>
       </Route>
 

@@ -18,7 +18,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import AuthContext from "../../contexts/AuthProvider";
 import { api } from "../../api/Api";
 import useAlert from "../../hooks/useAlert";
-import { AppRegistration } from "@mui/icons-material";
+import { AppRegistration, Person } from "@mui/icons-material";
 
 const LoginForm = ({ loginOnly }) => {
   //initialize api url
@@ -212,10 +212,10 @@ const LoginForm = ({ loginOnly }) => {
             <Button
               variant="outlined"
               sx={{ backgroundColor: "#ffffff" }}
-              startIcon={<AppRegistration />}
-              onClick={() => navigate("/shop/register/login")}
+              startIcon={<Person />}
+              onClick={() => navigate("/register/")}
             >
-              Register A Shop
+              Create An Account
             </Button>
           </Stack>
         )}

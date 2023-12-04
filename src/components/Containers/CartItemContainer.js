@@ -10,6 +10,7 @@ function CartItemContainer({
   handleShopSelection,
   selectedShopID,
   selectedCartItemIDs,
+  displayOnly,
 }) {
   const handleRadioChange = () => {
     if (selectedShopID !== data.shopID) {
@@ -25,10 +26,14 @@ function CartItemContainer({
         {/**SHOP DETAILS BAR  */}
         <Box sx={{ ...classes.topBar }}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            <Radio
-              onChange={handleRadioChange}
-              checked={selectedShopID === data.shopID}
-            />
+            {!displayOnly ? (
+              <Radio
+                onChange={handleRadioChange}
+                checked={selectedShopID === data.shopID}
+              />
+            ) : (
+              ""
+            )}
             <Typography variant="sectionTitleSmall">
               <TruncateString str={data?.shop_name} n={15} />
             </Typography>
@@ -52,6 +57,7 @@ function CartItemContainer({
               handleCartItemSelection={handleCartItemSelection}
               selectedShopID={selectedShopID}
               selectedCartItemIDs={selectedCartItemIDs}
+              displayOnly={displayOnly}
             />
           ))}
         </Box>

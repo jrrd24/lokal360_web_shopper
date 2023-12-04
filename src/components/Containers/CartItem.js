@@ -9,6 +9,7 @@ function CartItem({
   handleCartItemSelection,
   selectedShopID,
   selectedCartItemIDs,
+  displayOnly,
 }) {
   const handleCheckboxChange = () => {
     handleCartItemSelection(data.cartItemID);
@@ -16,15 +17,24 @@ function CartItem({
 
   return (
     <Box sx={{ ...classes.main }}>
-      <Checkbox
-        checked={selectedCartItemIDs.includes(data.cartItemID)}
-        disabled={data.shopID !== selectedShopID}
-        onChange={handleCheckboxChange}
-      />
+      {!displayOnly ? (
+        <Checkbox
+          checked={selectedCartItemIDs.includes(data.cartItemID)}
+          disabled={data.shopID !== selectedShopID}
+          onChange={handleCheckboxChange}
+        />
+      ) : (
+        ""
+      )}
       <Box>
         <img
-          src={`${BASE_URL}/${data?.var_image}`}
-          style={{ height: 75, width: 75, objectFit: "cover" }}
+          alt={"Product Variation"}
+          src={
+            data?.var_image
+              ? `${BASE_URL}/${data?.var_image}`
+              : require("../../assets/product_placeholder_big.jpg")
+          }
+          style={{ ...classes.image }}
         />
       </Box>
       {/**Details */}
@@ -58,6 +68,13 @@ const classes = {
     alignItems: "center",
     width: "100%",
     my: 2,
+  },
+
+  image: {
+    height: 75,
+    width: 75,
+    objectFit: "cover",
+    borderRadius: 10,
   },
 };
 export default CartItem;

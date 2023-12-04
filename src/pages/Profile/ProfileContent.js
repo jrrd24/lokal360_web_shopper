@@ -12,16 +12,16 @@ import {
 } from "@mui/material";
 import theme from "../../Theme";
 import styles from "../../css/Styles.module.css";
-import maleAvatar from "../../assets/avatars/128_3.png";
 import { ReadOnlyCustomInput } from "../../components/FormComponents/CustomInput";
 import { useRequestProcessor } from "../../hooks/useRequestProcessor";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
-import { Logout, Settings } from "@mui/icons-material";
+import { Logout } from "@mui/icons-material";
 import ButtonEdit from "../../components/Buttons/ButtonEdit";
 import EditProfileDialog from "./ProfileComponents/EditProfileDialog";
 import useAlert from "../../hooks/useAlert";
 import CustomAlert from "../../components/CustomAlert";
 import { BASE_URL } from "../../api/Api";
+import ShopperTools from "./ProfileComponents/ShopperTools";
 
 const ProfileContent = React.memo(() => {
   const [open, setOpen] = useState(false);
@@ -129,36 +129,43 @@ const ProfileContent = React.memo(() => {
       {data && (
         <div>
           <Box sx={{ ...classes.main }}>
-            <Box sx={{ ...classes.overview }}>
-              {/*User Avatar */}
-              <Box sx={{ ...classes.avatarContainer }}>
-                <Avatar
-                  className={`${styles.avatar}`}
-                  sx={{ ...classes.avatar }}
-                  src={`${BASE_URL}/${data.profile_pic}`}
-                />
+            <Box sx={{ ...classes.leftContainer }}>
+              <Box sx={{ ...classes.overview }}>
+                {/*User Avatar */}
+                <Box sx={{ ...classes.avatarContainer }}>
+                  <Avatar
+                    className={`${styles.avatar}`}
+                    sx={{ ...classes.avatar }}
+                    src={`${BASE_URL}/${data.profile_pic}`}
+                  />
 
-                <Box sx={{ ...classes.backgroundCircle }} />
+                  <Box sx={{ ...classes.backgroundCircle }} />
+                </Box>
+                {/*User Info */}
+                <Stack spacing={0}>
+                  {/*User Name */}
+                  <Typography variant="sectionTitle">
+                    {data.first_name === null && data.last_name === null
+                      ? data.Shopper.username
+                      : `${data.first_name} ${data.last_name}`}
+                  </Typography>
+                  {/*User Type */}
+                  <Typography variant="subtitle2">
+                    {data.is_shop_owner === true
+                      ? "Shop Owner"
+                      : data.is_shop_employee
+                      ? "Shop Employee"
+                      : data.is_admin
+                      ? "Admin"
+                      : "Shopper"}
+                  </Typography>
+                </Stack>
               </Box>
-              {/*User Info */}
-              <Stack spacing={0}>
-                {/*User Name */}
-                <Typography variant="sectionTitle">
-                  {data.first_name === null && data.last_name === null
-                    ? data.Shopper.username
-                    : `${data.first_name} ${data.last_name}`}
-                </Typography>
-                {/*User Type */}
-                <Typography variant="subtitle2">
-                  {data.is_shop_owner === true
-                    ? "Shop Owner"
-                    : data.is_shop_employee
-                    ? "Shop Employee"
-                    : data.is_admin
-                    ? "Admin"
-                    : "Shopper"}
-                </Typography>
-              </Stack>
+
+              {/*Shopper Tools*/}
+              <Box sx={{ width: "100%" }}>
+                <ShopperTools />
+              </Box>
             </Box>
 
             {/*Info */}
@@ -242,29 +249,6 @@ const ProfileContent = React.memo(() => {
                 </Box>
               </Stack>
 
-              {/*Account Info*/}
-              <Stack spacing={3} sx={{ ...classes.details }}>
-                {/*Section Name */}
-                <Box
-                  direction={"row"}
-                  sx={{ ...theme.components.box.sectionName }}
-                >
-                  <Typography variant="sectionTitle">
-                    Account Information
-                  </Typography>
-                </Box>
-
-                {/* */}
-                <Stack direction={"row"} spacing={3}>
-                  {/*Created At*/}
-                  <ReadOnlyCustomInput
-                    label="Created At"
-                    defaultValue={new Date(data.createdAt).toLocaleString()}
-                    width="100%"
-                  />
-                </Stack>
-              </Stack>
-
               {/*Button Container*/}
               <Box
                 sx={{
@@ -274,7 +258,7 @@ const ProfileContent = React.memo(() => {
                   "@media (max-width: 600px)": { alignSelf: "center" },
                 }}
               >
-                <Button
+                {/* <Button
                   variant="outlined"
                   startIcon={<Settings />}
                   onClick={() => navigate("/shop/settings")}
@@ -285,7 +269,7 @@ const ProfileContent = React.memo(() => {
                   >
                     Settings
                   </Typography>
-                </Button>
+                </Button> */}
 
                 <Button
                   variant="contained"
@@ -338,8 +322,23 @@ const classes = {
 
   overview: {
     width: 250,
-    height: 300,
+    minHeight: 300,
     ...theme.components.box.sectionContainer,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "flex-start",
+    flexDirection: "column",
+    textAlign: "center",
+    gap: "24px",
+    "@media (max-width: 900px)": {
+      width: "100%",
+    },
+  },
+
+  leftContainer: {
+    width: 250,
+    minHeight: 300,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",

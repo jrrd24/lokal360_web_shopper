@@ -27,7 +27,7 @@ function AboutUs({ data }) {
   }
   return (
     <div>
-      <Stack spacing={5}>
+      <Stack spacing={5} sx={{ mb: 10 }}>
         {/**SHOP DECRIPTION */}
         <Stack spacing={3}>
           <Typography variant="sectionTitle">
@@ -162,7 +162,7 @@ function AboutUs({ data }) {
 
         {/**CONTACT INFO*/}
         <Stack spacing={3}>
-          <Typography variant="sectionTitle">Operating Hours</Typography>
+          <Typography variant="sectionTitle">Contact Information</Typography>
 
           <ReadOnlyPhoneNumberPicker
             label="Phone Number"
