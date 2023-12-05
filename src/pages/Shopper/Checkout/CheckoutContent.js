@@ -17,6 +17,7 @@ import { useRequestProcessor } from "../../../hooks/useRequestProcessor";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import useAuth from "../../../hooks/useAuth";
 import { LoadingCircle } from "../../../components/Loading/Loading";
+import { useNavigate } from "react-router-dom";
 
 function CheckoutContent({ selectedCartItemIDs }) {
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
@@ -36,6 +37,7 @@ function CheckoutContent({ selectedCartItemIDs }) {
       : [];
   const cartItemIDs = orderItems.map((item) => item.cartItemID);
 
+  console.log("SID", selectedCartItemIDs);
   // Handle Alert Click
   const {
     open: openAlert,
@@ -49,6 +51,7 @@ function CheckoutContent({ selectedCartItemIDs }) {
   const { useCustomMutate } = useRequestProcessor();
   const axiosPrivate = useAxiosPrivate();
   const { auth } = useAuth();
+  const navigate = useNavigate();
 
   const { mutate } = useCustomMutate(
     "createOrder",
@@ -67,7 +70,7 @@ function CheckoutContent({ selectedCartItemIDs }) {
         <LoadingCircle />;
       },
       onSuccess: () => {
-        showAlert("success", "Delivery Address Added Successfully");
+        navigate("/profile/my_orders");
       },
     }
   );

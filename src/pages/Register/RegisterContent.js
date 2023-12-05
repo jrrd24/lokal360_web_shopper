@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 function RegisterContent() {
-  return (
-    <div>RegisterContent</div>
-  )
+  return <div>RegisterContent</div>;
 }
 
-export default RegisterContent
+export default RegisterContent;

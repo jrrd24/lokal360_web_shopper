@@ -31,18 +31,22 @@ function ShopCategories({
 
   return (
     <div>
-      <MapData
-        inputData={shopCategoryData}
-        component={(props) => (
-          <ShopCategoryContainer
-            {...props}
-            setSelectedCategory={setSelectedCategory}
-            selectedCategory={selectedCategory}
-          />
-        )}
-        horizontal
-        height={90}
-      />
+      {shopCategoryData.length > 0 ? (
+        <MapData
+          inputData={shopCategoryData}
+          component={(props) => (
+            <ShopCategoryContainer
+              {...props}
+              setSelectedCategory={setSelectedCategory}
+              selectedCategory={selectedCategory}
+            />
+          )}
+          horizontal
+          height={90}
+        />
+      ) : (
+        ""
+      )}
     </div>
   );
 }

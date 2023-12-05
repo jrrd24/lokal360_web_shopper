@@ -1,4 +1,12 @@
-import { Box, Button, Divider, Rating, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  ButtonBase,
+  Divider,
+  Rating,
+  Stack,
+  Typography,
+} from "@mui/material";
 import React, { useState } from "react";
 import NumberFormat from "../../../../utils/NumberFormat";
 import theme from "../../../../Theme";
@@ -13,6 +21,7 @@ import QuantityInput from "../../../../components/FormComponents/CustomNumberInp
 import { ShoppingCart } from "@mui/icons-material";
 import useAuth from "../../../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../../../../api/Api";
 
 function ProductInfo({ selectedProductID, data, showAlert }) {
   const { useCustomQuery, useCustomMutate } = useRequestProcessor();
@@ -148,6 +157,36 @@ function ProductInfo({ selectedProductID, data, showAlert }) {
         </Stack>
 
         {/*TODO: ADD SHOP LINK */}
+        <ButtonBase
+          sx={{
+            ...classes.detailsContainer,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "left",
+            gap: "16px",
+          }}
+          onClick={() => {
+            navigate(`/shop/${data.Shop.shopID}`);
+          }}
+        >
+          <img
+            src={
+              data.Shop.logo_img_link
+                ? `${BASE_URL}/${data.Shop.logo_img_link}`
+                : require("../../../../assets/product_placeholder_big.jpg")
+            }
+            style={{
+              height: 50,
+              width: 50,
+              objectFit: "cover",
+              borderRadius: 50,
+            }}
+          />
+
+          <Typography variant="sectionTitleSmall">
+            {data.Shop.shop_name}
+          </Typography>
+        </ButtonBase>
 
         {/**Product Details */}
         <Stack spacing={3} sx={{ ...classes.detailsContainer }}>
@@ -208,13 +247,7 @@ function ProductInfo({ selectedProductID, data, showAlert }) {
         </Stack>
 
         {/**Add To Cart Btn */}
-        <Stack
-          spacing={3}
-          sx={{
-            display: "flex",
-            justifyContent: "end",
-          }}
-        >
+        <Stack spacing={3} sx={{ display: "flex", justifyContent: "end" }}>
           <Box sx={{ marginLeft: "auto" }}>
             <ButtonAddToCart
               onClickAction={handleAddToCart}

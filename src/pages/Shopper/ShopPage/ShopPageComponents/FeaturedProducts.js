@@ -16,7 +16,9 @@ function FeaturedProducts({ selectedShopID }) {
     "getFeaturedProducts",
     () =>
       axiosPrivate
-        .get(`/api/product/get_all_featured/?shopID=${selectedShopID}`)
+        .get(
+          `/api/product/get_all_featured/?shopID=${selectedShopID}&shopperView=true`
+        )
         .then((res) => res.data),
     { enabled: true }
   );

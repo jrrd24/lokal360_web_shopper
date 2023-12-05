@@ -303,6 +303,7 @@ const classes = {
   detailsContainer: {
     pl: 26,
     pt: 1,
+    minHeight: 110,
     "@media (max-width: 900px)": {
       pl: 0,
       pt: 15,
@@ -310,6 +311,7 @@ const classes = {
       flexDirection: "column",
       alignItems: "center",
       textAlign: "center",
+      minHeight: "100%",
     },
     "@media (max-width: 400px)": {
       pt: 12,
