@@ -1,4 +1,11 @@
-import { Box, Button, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Divider,
+  Stack,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import React from "react";
 import theme from "../../../Theme";
 import { useRequestProcessor } from "../../../hooks/useRequestProcessor";
@@ -40,6 +47,7 @@ function MyAddressesContent() {
   const { useCustomQuery } = useRequestProcessor();
   const axiosPrivate = useAxiosPrivate();
   const { auth } = useAuth();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
   const { data, isLoading } = useCustomQuery(
     "getAllDeliveryAddress",
@@ -62,13 +70,34 @@ function MyAddressesContent() {
           data.inactiveDeliveryAddress?.length > 0 ? (
             <Stack spacing={3} sx={{ textAlign: "left" }}>
               <Box sx={{ display: "flex", alignItems: "center" }}>
-                <Box>
-                  <Typography variant="sectionTitleBig">
-                    My Addresses
-                  </Typography>
-                  <Typography variant="subtitle1">
-                    Set Up Your Delivery Address
-                  </Typography>
+                <Box sx={{ ...classes.sectionTitle }}>
+                  {!isSmallScreen ? (
+                    <Box sx={{ ...classes.sectionTitle }}>
+                      <img
+                        alt={"logo"}
+                        src={require("../../../assets/lokal360_logo_gray.png")}
+                        style={{ ...classes.logo }}
+                      />
+
+                      <Divider
+                        orientation="vertical"
+                        variant="middle"
+                        flexItem
+                        sx={{ ...classes.divider }}
+                      />
+                    </Box>
+                  ) : (
+                    ""
+                  )}
+
+                  <Stack>
+                    <Typography variant="sectionTitleBig">
+                      My Addresses
+                    </Typography>
+                    <Typography variant="subtitle1">
+                      Set Up Your Delivery Address
+                    </Typography>
+                  </Stack>
                 </Box>
 
                 <AddButton handleOpen={handleOpen} />
@@ -143,6 +172,22 @@ const classes = {
     borderRadius: 5,
     ml: "auto",
     height: 50,
+  },
+
+  logo: {
+    width: 75,
+    height: 75,
+  },
+
+  sectionTitle: {
+    display: "flex",
+    alignItems: "center",
+    gap: "16px",
+  },
+
+  divider: {
+    borderLeftWidth: 2,
+    color: theme.palette.text.primary,
   },
 };
 

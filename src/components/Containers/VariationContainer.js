@@ -2,6 +2,7 @@ import { Box, ButtonBase, Typography } from "@mui/material";
 import React from "react";
 import { BASE_URL } from "../../api/Api";
 import theme from "../../Theme";
+import Zoom from "react-medium-image-zoom";
 
 function VariationContainer({
   data,
@@ -44,14 +45,21 @@ function VariationContainer({
         }}
         disabled={data?.amt_on_hand === 0}
       >
-        <img
-          src={
-            !data?.var_image
-              ? require("../../assets/product_placeholder_big.jpg")
-              : imagePath
-          }
-          style={{ height: 50, width: 50, borderRadius: 4 }}
-        />
+        <Zoom>
+          <img
+            src={
+              !data?.var_image
+                ? require("../../assets/product_placeholder_big.jpg")
+                : imagePath
+            }
+            style={{
+              height: 50,
+              width: 50,
+              borderRadius: 4,
+              objectFit: "cover",
+            }}
+          />
+        </Zoom>
         <Typography varitaion="sectionTitleSmall">{data?.var_name}</Typography>
         {data?.amt_on_hand === 0 ? (
           <Box

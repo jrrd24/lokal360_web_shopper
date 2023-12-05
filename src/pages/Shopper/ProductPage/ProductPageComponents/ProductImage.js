@@ -1,21 +1,24 @@
 import { Box } from "@mui/material";
 import React from "react";
+import Zoom from "react-medium-image-zoom";
 
 function ProductImage({ thumbnail, thumbnailPath }) {
   return (
     <div>
       <Box sx={{ ...classes.main }}>
-        <Box sx={{ ...classes.thumbnailContainer }}>
-          <img
-            src={
-              thumbnail
-                ? thumbnailPath
-                : require("../../../../assets/placeholder.png")
-            }
-            alt={"shop thumbnail"}
-            style={{ ...classes.thumbnail }}
-          />
-        </Box>
+        <Zoom>
+          <Box sx={{ ...classes.thumbnailContainer }}>
+            <img
+              src={
+                thumbnail
+                  ? thumbnailPath
+                  : require("../../../../assets/placeholder.png")
+              }
+              alt={"shop thumbnail"}
+              style={{ ...classes.thumbnail }}
+            />
+          </Box>
+        </Zoom>
       </Box>
     </div>
   );

@@ -147,6 +147,8 @@ function ProductInfo({ selectedProductID, data, showAlert }) {
           </Box>
         </Stack>
 
+        {/*TODO: ADD SHOP LINK */}
+
         {/**Product Details */}
         <Stack spacing={3} sx={{ ...classes.detailsContainer }}>
           {/**DESCRIPTION */}

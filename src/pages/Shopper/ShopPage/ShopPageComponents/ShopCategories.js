@@ -5,12 +5,14 @@ import { LoadingCircle } from "../../../../components/Loading/Loading";
 import MapData from "../../../../utils/MapData";
 import ShopCategoryContainer from "../../../../components/Containers/ShopCategoryContainer";
 
-function ShopCategories({ selectedShopID, setSelectedCategory }) {
+function ShopCategories({
+  selectedShopID,
+  setSelectedCategory,
+  selectedCategory,
+}) {
   //API CALL GET ALL ACTIVE SITEWIDE ADS
   const { useCustomQuery } = useRequestProcessor();
   const axiosPrivate = useAxiosPrivate();
-
-
 
   const { data: shopCategoryData, isLoading } = useCustomQuery(
     "getAllShopCategory",
@@ -35,6 +37,7 @@ function ShopCategories({ selectedShopID, setSelectedCategory }) {
           <ShopCategoryContainer
             {...props}
             setSelectedCategory={setSelectedCategory}
+            selectedCategory={selectedCategory}
           />
         )}
         horizontal

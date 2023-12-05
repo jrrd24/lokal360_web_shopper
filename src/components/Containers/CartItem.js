@@ -10,10 +10,15 @@ function CartItem({
   selectedShopID,
   selectedCartItemIDs,
   displayOnly,
+  displayOrder,
 }) {
   const handleCheckboxChange = () => {
     handleCartItemSelection(data.cartItemID);
   };
+
+  let totalPrice = displayOrder
+    ? data.total_price
+    : data?.price * data?.quantity;
 
   return (
     <Box sx={{ ...classes.main }}>
@@ -44,6 +49,15 @@ function CartItem({
           <Typography variant="sectionTitleSmall">
             {data?.product_name}
           </Typography>
+
+          {displayOrder ? (
+            <Typography variant="body" color={theme.palette.text.eighty}>
+              {data?.shop_name}
+            </Typography>
+          ) : (
+            ""
+          )}
+
           <Typography variant="body" color={theme.palette.text.sixty}>
             Variation: {data?.var_name} | Quantity: {data?.quantity}
           </Typography>
@@ -52,7 +66,7 @@ function CartItem({
         {/**Price  */}
         <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
           <Typography variant="sectionTitleSmall" color="primary">
-            <NumberFormat value={data?.price * data?.quantity} isPeso />
+            <NumberFormat value={totalPrice} isPeso />
           </Typography>
         </Box>
       </Stack>

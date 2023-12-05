@@ -13,6 +13,7 @@ import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
 import useAuth from "../../../../hooks/useAuth";
 import { LoadingCircle } from "../../../../components/Loading/Loading";
 import { BASE_URL } from "../../../../api/Api";
+import Zoom from "react-medium-image-zoom";
 
 function MainShopInfo({
   showAlert,
@@ -109,43 +110,49 @@ function MainShopInfo({
       <Box sx={{ ...classes.main }}>
         {/**Header Container */}
         <Box>
-          <Box sx={{ ...classes.headerContainer }}>
-            <img
-              src={
-                header
-                  ? headerPath
-                  : require("../../../../assets/placeholder.png")
-              }
-              alt={"shop header"}
-              style={{ ...classes.header }}
-            />
+          <Zoom>
+            <Box sx={{ ...classes.headerContainer }}>
+              <img
+                src={
+                  header
+                    ? headerPath
+                    : require("../../../../assets/placeholder.png")
+                }
+                alt={"shop header"}
+                style={{ ...classes.header }}
+              />
 
-            {/**Follow Button */}
-            <Box sx={classes.buttonContainer}>
-              {isFollowing ? (
-                <UnfollowButton handleClick={handleUnfollowClick} />
-              ) : (
-                <FollowButton handleClick={handleFollowClick} />
-              )}
+              {/**Follow Button */}
+              <Box sx={classes.buttonContainer}>
+                {isFollowing ? (
+                  <UnfollowButton handleClick={handleUnfollowClick} />
+                ) : (
+                  <FollowButton handleClick={handleFollowClick} />
+                )}
+              </Box>
             </Box>
-          </Box>
+          </Zoom>
         </Box>
 
         {/**Logo Container */}
-        <Box sx={{ ...classes.logoContainer }}>
-          <img
-            src={
-              logo
-                ? logoPath
-                : require("../../../../assets/product_placeholder_big.jpg")
-            }
-            alt={"shop header"}
-            style={{
-              ...classes.image,
-              borderRadius: 10,
-              objectFit: "cover",
-            }}
-          />
+        <Box sx={{ ...classes.logoZoomContainer }}>
+          <Zoom>
+            <Box sx={{ ...classes.logoContainer }}>
+              <img
+                src={
+                  logo
+                    ? logoPath
+                    : require("../../../../assets/product_placeholder_big.jpg")
+                }
+                alt={"shop header"}
+                style={{
+                  ...classes.image,
+                  borderRadius: 10,
+                  objectFit: "cover",
+                }}
+              />
+            </Box>
+          </Zoom>
         </Box>
       </Box>
 
@@ -269,6 +276,13 @@ const classes = {
     height: 150,
     width: 190,
 
+    "@media (max-width: 900px)": { pl: 0, width: 150 },
+    "@media (max-width: 400px)": { height: 125, width: 125 },
+  },
+
+  logoZoomContainer: {
+    position: "absolute",
+    pl: 0,
     "@media (max-width: 900px)": { pl: 0, width: 150 },
     "@media (max-width: 400px)": { height: 125, width: 125 },
   },

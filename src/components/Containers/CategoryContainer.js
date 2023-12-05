@@ -19,6 +19,10 @@ function CategoryContainer({ data }) {
           height: 50,
           backgroundColor: theme.palette.background.paper,
           borderRadius: 5,
+          "&:hover": {
+            backgroundColor: theme.palette.primary.light,
+            border: `2px solid ${theme.palette.primary.main}`,
+          },
         }}
       >
         <Typography variant="sectionTitleSmall">

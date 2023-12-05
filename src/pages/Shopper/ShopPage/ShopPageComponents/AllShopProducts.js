@@ -7,7 +7,7 @@ import { LoadingCircle } from "../../../../components/Loading/Loading";
 import ShopCategories from "./ShopCategories";
 
 function AllShopProducts({ selectedShopID }) {
-  //API CALL GET ALL ACTIVE SITEWIDE ADS
+  //API CALL GET ALL SHOP PRODUCTS
   const { useCustomQuery, queryClient } = useRequestProcessor();
   const axiosPrivate = useAxiosPrivate();
 
@@ -38,6 +38,7 @@ function AllShopProducts({ selectedShopID }) {
       <ShopCategories
         selectedShopID={selectedShopID}
         setSelectedCategory={setSelectedCategory}
+        selectedCategory= {selectedCategory}
       />
       <Box
         sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
