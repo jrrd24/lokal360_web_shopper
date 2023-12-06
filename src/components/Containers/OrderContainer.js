@@ -28,8 +28,6 @@ function OrderContainer({ data }) {
     }
   }, [data.status]);
 
-  
-
   return (
     <div>
       <Box sx={{ ...classes.main }}>

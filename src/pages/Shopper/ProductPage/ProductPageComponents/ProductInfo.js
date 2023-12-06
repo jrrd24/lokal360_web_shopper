@@ -144,10 +144,16 @@ function ProductInfo({ selectedProductID, data, showAlert }) {
           {/**Price */}
           <Box>
             {price === 0 ? (
-              <Typography variant="sectionTitle" color="primary">
-                <NumberFormat value={data.price} isPeso /> -{" "}
-                <NumberFormat value={data.max_price} isPeso />
-              </Typography>
+              data.price !== data.max_price ? (
+                <Typography variant="sectionTitle" color="primary">
+                  <NumberFormat value={data.price} isPeso /> -{" "}
+                  <NumberFormat value={data.max_price} isPeso />
+                </Typography>
+              ) : (
+                <Typography variant="sectionTitle" color="primary">
+                  <NumberFormat value={data.price} isPeso />
+                </Typography>
+              )
             ) : (
               <Typography variant="sectionTitle" color="primary">
                 <NumberFormat value={price} isPeso />
@@ -265,6 +271,8 @@ const classes = {
     backgroundColor: theme.palette.background.paper,
     p: 2,
     borderRadius: 5,
+
+    width: "100%",
   },
 };
 

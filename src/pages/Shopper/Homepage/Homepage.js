@@ -11,7 +11,7 @@ function Homepage() {
     };
   }, []);
 
-  return <CustomAppbar component={HomepageContent} />;
+  return <CustomAppbar component={HomepageContent} isHome />;
 }
 
 export default Homepage;

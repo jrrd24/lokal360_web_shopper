@@ -51,14 +51,15 @@ function MapData({
         horizontal
           ? {
               display: "flex",
-              flexDirection: "column",
+              flexDirection: "row",
               gap: "8px",
-              flexWrap: "wrap",
-              alignItems: "center",
-              justifyContent: "space-between",
+              flexWrap: "nowrap",
+              alignItems: "flex-start",
+              justifyContent: "flex-start",
               minWidth: "100%",
               height: height,
-              overflow: "auto",
+              overflowX: "auto",
+              overflowY: "hidden",
             }
           : { minWidth: "100%" }
       }

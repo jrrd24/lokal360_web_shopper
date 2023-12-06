@@ -53,7 +53,7 @@ function ProductPreview({ data }) {
           <Stack spacing={1}>
             {/*Prod Name */}
             <Typography sx={{ ...classes.prodName }}>
-              <TruncateString str={product_name || "NaN"} n={40} />
+              <TruncateString str={product_name || "NaN"} n={30} />
             </Typography>
 
             {/*Prod Ratings and Amt Sold */}
@@ -118,7 +118,7 @@ const classes = {
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
-    minHeight: 90,
+    height: 100,
   },
 
   prodName: {

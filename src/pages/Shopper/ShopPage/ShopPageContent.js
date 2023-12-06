@@ -166,7 +166,7 @@ function TabsContainer({ value, handleChange }) {
       <Tab
         label={
           <Typography variant="sectionTitleSmall" sx={{ ...classes.tab }}>
-            Home
+            Shop
           </Typography>
         }
         {...a11yProps(0)}

@@ -38,7 +38,7 @@ HideOnScroll.propTypes = {
 };
 
 const CustomAppbar = React.memo(
-  ({ component: MainComponent, isCart }, props) => {
+  ({ component: MainComponent, isCart, isHome }, props) => {
     const navigate = useNavigate();
     return (
       <React.Fragment>
@@ -46,14 +46,18 @@ const CustomAppbar = React.memo(
         <HideOnScroll {...props}>
           <AppBar
             sx={{
-              backgroundColor: theme.palette.background.paper,
+              backgroundColor: isHome
+                ? theme.palette.primary.main
+                : theme.palette.background.paper,
               display: "flex",
               justifyContent: "center",
             }}
           >
             <Toolbar
               sx={{
-                backgroundColor: theme.palette.background.paper,
+                backgroundColor: isHome
+                  ? theme.palette.primary.main
+                  : theme.palette.background.paper,
                 transition: "background-color 0.3s ease",
               }}
             >
@@ -84,7 +88,11 @@ const CustomAppbar = React.memo(
                     onClick={() => {
                       navigate(`/cart`);
                     }}
-                    sx={{ color: "primary" }}
+                    sx={{
+                      color: isHome
+                        ? theme.palette.background.paper
+                        : "primary",
+                    }}
                   >
                     <ShoppingCart />
                   </IconButton>
@@ -96,7 +104,11 @@ const CustomAppbar = React.memo(
                     onClick={() => {
                       navigate(`/profile/`);
                     }}
-                    sx={{ color: "primary" }}
+                    sx={{
+                      color: isHome
+                        ? theme.palette.background.paper
+                        : "primary",
+                    }}
                   >
                     <AccountCircle />
                   </IconButton>
@@ -107,7 +119,11 @@ const CustomAppbar = React.memo(
 
               <Box sx={{ display: { xs: "flex", md: "none" } }}>
                 {/**Add on click for mobile view */}
-                <IconButton size="large" onClick={""} sx={{ color: "primary" }}>
+                <IconButton
+                  size="large"
+                  onClick={() => {}}
+                  sx={{ color: "primary" }}
+                >
                   <MoreVert />
                 </IconButton>
               </Box>

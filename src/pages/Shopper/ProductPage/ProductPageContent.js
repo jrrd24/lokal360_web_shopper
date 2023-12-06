@@ -113,8 +113,8 @@ const classes = {
     justifyContent: "center",
   },
   main: {
-    maxWidth: 900,
-    width: 900,
+    maxWidth: 1200,
+    width: 1200,
     "@media (max-width: 900px)": { width: "100%" },
     textAlign: "left",
   },

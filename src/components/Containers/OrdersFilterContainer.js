@@ -24,7 +24,6 @@ function OrdersFilterContainer({ data, setSelectedFilter, selectedFilter }) {
       <ButtonBase
         onClick={onClick}
         sx={{
-          width: "100%",
           height: 50,
           backgroundColor:
             selectedFilter !== data?.name
@@ -41,6 +40,7 @@ function OrdersFilterContainer({ data, setSelectedFilter, selectedFilter }) {
           color={
             selectedFilter !== data?.name ? theme.palette.text.primary : color
           }
+          sx={{ p: 0, whiteSpace: "nowrap" }}
         >
           {" "}
           {data?.name}

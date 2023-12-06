@@ -21,10 +21,13 @@ function AllProducts() {
     return <LoadingCircle />;
   }
 
-
   return (
     <Box
-      sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
     >
       <Grid container spacing={0} sx={{ display: "flex", flexWrap: "wrap" }}>
         {productsData.map((product, index) => (

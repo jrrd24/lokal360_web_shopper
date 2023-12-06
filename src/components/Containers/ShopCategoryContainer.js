@@ -22,34 +22,31 @@ function ShopCategoryContainer({
       : {};
 
   return (
-    <div>
-      <ButtonBase
-        onClick={onClick}
-        sx={{
-          width: "100%",
-          height: 50,
-          backgroundColor:
-            selectedCategory === data.shopCategoryID
-              ? theme.palette.primary.main
-              : theme.palette.background.paper,
-          borderRadius: 5,
-          px: 5,
-          ...hoverStyles,
-        }}
+    <ButtonBase
+      onClick={onClick}
+      sx={{
+        height: 50,
+        backgroundColor:
+          selectedCategory === data.shopCategoryID
+            ? theme.palette.primary.main
+            : theme.palette.background.paper,
+        borderRadius: 5,
+        px: 5,
+        ...hoverStyles,
+      }}
+    >
+      <Typography
+        variant="sectionTitleSmall"
+        color={
+          selectedCategory === data.shopCategoryID
+            ? theme.palette.background.paper
+            : theme.palette.text.primary
+        }
+        sx={{ p: 0, whiteSpace: "nowrap" }}
       >
-        <Typography
-          variant="sectionTitleSmall"
-          color={
-            selectedCategory === data.shopCategoryID
-              ? theme.palette.background.paper
-              : theme.palette.text.primary
-          }
-        >
-          {" "}
-          {data.shop_category_name}
-        </Typography>
-      </ButtonBase>
-    </div>
+        {data.shop_category_name}
+      </Typography>
+    </ButtonBase>
   );
 }
 
