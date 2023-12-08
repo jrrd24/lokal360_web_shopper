@@ -34,6 +34,7 @@ function CustomPhoneNumberPicker({
             disabled={disabled}
             error={!!fieldState.error}
             helperText={fieldState.error ? fieldState.error.message : ""}
+            defaultCountry="PH"
           />
         </div>
       )}

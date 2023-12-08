@@ -271,7 +271,7 @@ const classes = {
     backgroundColor: theme.palette.background.paper,
     p: 2,
     borderRadius: 5,
-
+    maxWidth: 650,
     width: "100%",
   },
 };

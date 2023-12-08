@@ -25,8 +25,6 @@ function VariationContainer({
         onClick={onClick}
         sx={{
           height: 60,
-          maxWidth: 200,
-          minWidth: 150,
           p: 1,
           width: "100%",
           borderRadius: 2,
@@ -37,6 +35,7 @@ function VariationContainer({
           display: "flex",
           alignItems: "center",
           justifyContent: "left",
+          textAlign: "left",
           gap: "8px",
           border:
             selectedVariation === data?.prodVariationID

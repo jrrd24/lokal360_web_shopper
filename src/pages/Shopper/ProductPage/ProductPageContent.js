@@ -10,6 +10,7 @@ import ProductImage from "./ProductPageComponents/ProductImage";
 import ProductInfo from "./ProductPageComponents/ProductInfo";
 import CustomAlert from "../../../components/CustomAlert";
 import useAlert from "../../../hooks/useAlert";
+import RelatedRawMats from "./ProductPageComponents/RelatedRawMats";
 
 function ProductPageContent({ selectedProductID, setProductName }) {
   const useIsMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
@@ -79,18 +80,24 @@ function ProductPageContent({ selectedProductID, setProductName }) {
     <div>
       <Box sx={{ ...classes.pageContainer }}>
         <Box sx={{ ...classes.main }}>
-          <Stack spacing={2} direction={useIsMobile ? "column" : "row"}>
-            <ProductImage
-              thumbnailPath={product_thumbnail}
-              thumbnail={Images[0].prod_image}
-            />
-            <Box sx={{ width: "100%" }}>
-              <ProductInfo
-                data={data}
-                selectedProductID={selectedProductID}
-                showAlert={handleShowAlert}
+          <Stack spacing={3}>
+            {/**Product Image and Info */}
+            <Stack spacing={2} direction={useIsMobile ? "column" : "row"}>
+              <ProductImage
+                thumbnailPath={product_thumbnail}
+                thumbnail={Images[0].prod_image}
               />
-            </Box>
+              <Box sx={{ width: "100%" }}>
+                <ProductInfo
+                  data={data}
+                  selectedProductID={selectedProductID}
+                  showAlert={handleShowAlert}
+                />
+              </Box>
+            </Stack>
+
+            {/**Related Raw Materials */}
+            <RelatedRawMats categoryID={data?.categoryID} />
           </Stack>
         </Box>
       </Box>
