@@ -5,13 +5,16 @@ import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
 import { LoadingCircle } from "../../../../components/Loading/Loading";
 import useAuth from "../../../../hooks/useAuth";
 
-function CartItems({selectedShopID, setSelectedShopID, selectedCartItemIDs, setSelectedCartItemIDs}) {
+function CartItems({
+  selectedShopID,
+  setSelectedShopID,
+  selectedCartItemIDs,
+  setSelectedCartItemIDs,
+}) {
   // API CALL GET ALL CART ITEMS
   const { useCustomQuery } = useRequestProcessor();
   const axiosPrivate = useAxiosPrivate();
   const { auth } = useAuth();
-
-
 
   // Function to handle shop selection change
   const handleShopSelection = (shopID) => {
@@ -45,7 +48,7 @@ function CartItems({selectedShopID, setSelectedShopID, selectedCartItemIDs, setS
 
   return (
     <div>
-      {data.CartItemsByShop.map((shop) => (
+      {data?.CartItemsByShop.map((shop) => (
         <CartItemContainer
           key={shop.shop_name}
           data={shop}
