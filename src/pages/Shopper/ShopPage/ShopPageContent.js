@@ -13,8 +13,17 @@ import ActiveVouchers from "./ShopPageComponents/ActiveVouchers";
 import PropTypes from "prop-types";
 import AllShopProducts from "./ShopPageComponents/AllShopProducts";
 import AboutUs from "./ShopPageComponents/AboutUs";
+import ViewLocationDialog from "./ViewLocationDialog/ViewLocationDialog";
 
 function ShopPageContent({ selectedShopID, setShopName }) {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   //for tabs
   const [value, setValue] = useState(0);
   const handleChange = (event, newValue) => {
@@ -67,6 +76,8 @@ function ShopPageContent({ selectedShopID, setShopName }) {
     shipping_pickup_enabled,
     logo_img_link,
     header_img_link,
+    latitude,
+    longitude,
   } = data.shopInfo;
 
   const handleShowAlert = (severity, alertMsg) => {
@@ -89,6 +100,7 @@ function ShopPageContent({ selectedShopID, setShopName }) {
                 followerCount={data.followerCount}
                 deliver={shipping_deliver_enabled}
                 pickUp={shipping_pickup_enabled}
+                handleOpen={handleOpen}
               />
 
               {/*Set Tab bar */}
@@ -115,12 +127,21 @@ function ShopPageContent({ selectedShopID, setShopName }) {
           </Stack>
         </Box>
       </Box>
+
       {/*Display Alert */}
       <CustomAlert
         open={openAlert}
         setOpen={hideAlert}
         severity={severity}
         alertMsg={alertMsg}
+      />
+
+      <ViewLocationDialog
+        open={open}
+        longitude={longitude}
+        latitude={latitude}
+        handleClose={handleClose}
+        shopName={shop_name}
       />
     </div>
   );

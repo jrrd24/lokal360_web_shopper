@@ -2,6 +2,7 @@ import {
   Bookmark,
   DeliveryDining,
   People,
+  Place,
   StarHalf,
 } from "@mui/icons-material";
 import { Box, Button, Stack, Typography } from "@mui/material";
@@ -25,6 +26,7 @@ function MainShopInfo({
   followerCount,
   deliver,
   pickUp,
+  handleOpen,
 }) {
   const { useCustomQuery, useCustomMutate } = useRequestProcessor();
   const axiosPrivate = useAxiosPrivate();
@@ -129,6 +131,7 @@ function MainShopInfo({
                 ) : (
                   <FollowButton handleClick={handleFollowClick} />
                 )}
+                <ViewLocationButton handleClick={handleOpen} />
               </Box>
             </Box>
           </Zoom>
@@ -252,6 +255,28 @@ const UnfollowButton = ({ handleClick }) => {
   );
 };
 
+const ViewLocationButton = ({ handleClick }) => {
+  return (
+    <Button
+      variant="outlined"
+      startIcon={<Place />}
+      onClick={handleClick}
+      sx={{
+        backgroundColor: `${theme.palette.background.paper}`,
+        borderRadius: 5,
+        "&:hover": {
+          backgroundColor: theme.palette.primary.light,
+        },
+        color: theme.palette.text.primary,
+      }}
+    >
+      <Typography variant="seeAll" sx={{ color: "inherit", fontSize: 18 }}>
+        Location
+      </Typography>
+    </Button>
+  );
+};
+
 const classes = {
   main: {
     position: "relative",
@@ -348,6 +373,9 @@ const classes = {
     top: 0,
     right: 0,
     margin: "10px",
+    display: "flex",
+    flexDirection: "column",
+    gap: "8px",
   },
 };
 export default MainShopInfo;
