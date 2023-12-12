@@ -61,7 +61,10 @@ function OrderContainer({ data }) {
         >
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <Typography variant="sectionTitleSmall" color={color}>
-              {data.status}
+              {data.status}&nbsp;&nbsp;•&nbsp;&nbsp;{" "}
+              <Typography variant="subtitle1" component="span">
+                {data.shipping_method}
+              </Typography>
             </Typography>
           </Box>
         </Box>

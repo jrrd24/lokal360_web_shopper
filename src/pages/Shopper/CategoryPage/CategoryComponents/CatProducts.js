@@ -30,7 +30,7 @@ function CatProducts({ categoryName }) {
       sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
     >
       <Grid container spacing={0} sx={{ display: "flex", flexWrap: "wrap" }}>
-        {productsData.map((product, index) => (
+        {productsData?.map((product, index) => (
           <Grid
             item
             xs={6}

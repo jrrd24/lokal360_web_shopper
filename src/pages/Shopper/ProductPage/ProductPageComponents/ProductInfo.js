@@ -127,7 +127,7 @@ function ProductInfo({ selectedProductID, data, showAlert }) {
                 {/**AMT SOLD*/}
 
                 <Typography variant="sectionTitleSmall" color="primary">
-                  <NumberFormat value={data.amountSold} isShortened />
+                  <NumberFormat value={data.amountSold || 0} isShortened />
                   &nbsp;
                   <Typography
                     variant="subtitle1"
@@ -151,12 +151,12 @@ function ProductInfo({ selectedProductID, data, showAlert }) {
                 </Typography>
               ) : (
                 <Typography variant="sectionTitle" color="primary">
-                  <NumberFormat value={data.price} isPeso />
+                  <NumberFormat value={data.price || 0} isPeso />
                 </Typography>
               )
             ) : (
               <Typography variant="sectionTitle" color="primary">
-                <NumberFormat value={price} isPeso />
+                <NumberFormat value={price || 0} isPeso />
               </Typography>
             )}
           </Box>
@@ -208,21 +208,33 @@ function ProductInfo({ selectedProductID, data, showAlert }) {
           <Stack spacing={1}>
             <Typography variant="sectionTitleSmall">Variations</Typography>
             {/*TODO: MAP VARIATIONS */}
-            <MapData
-              inputData={data?.ProductVariations}
-              component={(props) => (
-                <VariationContainer
-                  {...props}
-                  setSelectedVariation={setSelectedVariation}
-                  selectedVariation={selectedVariation}
-                  setVarAmtOnHand={setVarAmtOnHand}
-                  setPrice={setPrice}
-                />
-              )}
-              idName={"prodVariationID"}
-              horizontal
-              height={100}
-            />
+            <div
+              className="scrollable-content custom-scrollbar"
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                gap: "8px",
+                flexWrap: "nowrap",
+                alignItems: "flex-start",
+                justifyContent: "flex-start",
+                minWidth: "100%",
+                height: 100,
+                overflowX: "auto",
+                overflowY: "hidden",
+              }}
+            >
+              {data?.ProductVariations?.map((variation) => (
+                <div key={variation.prodVariationID} style={{ marginTop: 15 }}>
+                  <VariationContainer
+                    data={variation}
+                    setSelectedVariation={setSelectedVariation}
+                    selectedVariation={selectedVariation}
+                    setVarAmtOnHand={setVarAmtOnHand}
+                    setPrice={setPrice}
+                  />
+                </div>
+              ))}
+            </div>
           </Stack>
 
           <Divider />

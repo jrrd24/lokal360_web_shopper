@@ -30,7 +30,7 @@ function AllProducts() {
       }}
     >
       <Grid container spacing={0} sx={{ display: "flex", flexWrap: "wrap" }}>
-        {productsData.map((product, index) => (
+        {productsData?.map((product, index) => (
           <Grid
             item
             xs={6}

@@ -28,7 +28,7 @@ function CatShops({ categoryName }) {
       sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
     >
       <Grid container spacing={0} sx={{ display: "flex", flexWrap: "wrap" }}>
-        {shopData.map((shop, index) => (
+        {shopData?.map((shop, index) => (
           <Grid
             item
             xs={12}

@@ -59,14 +59,17 @@ function VariationContainer({
             }}
           />
         </Zoom>
-        <Typography varitaion="sectionTitleSmall">{data?.var_name}</Typography>
+        <Typography
+          varitaion="sectionTitleSmall"
+          sx={{ p: 0, whiteSpace: "nowrap" }}
+        >
+          {data?.var_name}
+        </Typography>
         {data?.amt_on_hand === 0 ? (
           <Box
             sx={{
               height: 60,
-              maxWidth: 200,
-              minWidth: 150,
-              width: "100%",
+              width: "95%",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
