@@ -6,7 +6,7 @@ import {
   StarHalf,
 } from "@mui/icons-material";
 import { Box, Button, Stack, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import theme from "../../../../Theme";
 import { BiShoppingBag } from "react-icons/bi";
 import { useRequestProcessor } from "../../../../hooks/useRequestProcessor";
@@ -44,6 +44,12 @@ function MainShopInfo({
     { enabled: true }
   );
 
+  useEffect(() => {
+    if (isFollowingData !== undefined) {
+      setIsFollowing(isFollowingData);
+    }
+  }, [isFollowingData]);
+
   //Follow Shop
   const { mutate: mutateFollow } = useCustomMutate(
     "followShop",
@@ -52,7 +58,7 @@ function MainShopInfo({
         `api/customer/follow/?shopID=${selectedShopID}&shopperID=${auth.shopperID}`
       );
     },
-    ["checkIfFollowing"],
+    ["checkIfFollowing", "getShopData"],
     {
       onError: (error) => {
         showAlert("error", error);
@@ -74,7 +80,7 @@ function MainShopInfo({
         `api/customer/unfollow/?shopID=${selectedShopID}&shopperID=${auth.shopperID}`
       );
     },
-    ["checkIfFollowing"],
+    ["checkIfFollowing", "getShopData"],
     {
       onError: (error) => {
         showAlert("error", error);
@@ -88,7 +94,10 @@ function MainShopInfo({
     }
   );
 
-  const [isFollowing, setIsFollowing] = useState(isFollowingData);
+  console.log("IS FOLLOWING", isFollowingData);
+  const [isFollowing, setIsFollowing] = useState(
+    isFollowingData ? isFollowingData : false
+  );
 
   const handleFollowClick = () => {
     mutateFollow();
@@ -168,7 +177,7 @@ function MainShopInfo({
             <StarHalf sx={{ ...classes.star }} />
             <Typography sx={{ fontSize: "inherit" }}>
               <span style={{ ...classes.prodDetailBig }}>
-                &nbsp;{shopRating !== 0 ? shopRating.toFixed(2) : "N/A"}
+                &nbsp;{shopRating !== 0 ? shopRating.toFixed(1) : "N/A"}
               </span>
               /5 &nbsp;&nbsp;| &nbsp;&nbsp;
             </Typography>

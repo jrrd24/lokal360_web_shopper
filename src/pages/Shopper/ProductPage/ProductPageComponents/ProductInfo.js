@@ -22,6 +22,7 @@ import { ShoppingCart } from "@mui/icons-material";
 import useAuth from "../../../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../../../api/Api";
+import RawMaterialTag from "../../../../components/Tags/RawMaterialTag";
 
 function ProductInfo({ selectedProductID, data, showAlert }) {
   const { useCustomQuery, useCustomMutate } = useRequestProcessor();
@@ -139,6 +140,8 @@ function ProductInfo({ selectedProductID, data, showAlert }) {
                 </Typography>
               </Box>
             </Stack>
+
+            {data?.is_raw_mat ? <RawMaterialTag /> : ""}
           </Stack>
 
           {/**Price */}

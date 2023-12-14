@@ -7,6 +7,7 @@ import NumberFormat from "../../utils/NumberFormat";
 import { useNavigate } from "react-router-dom";
 import styles from "../../css/Styles.module.css";
 import { BASE_URL } from "../../api/Api";
+import RawMaterialTag from "../Tags/RawMaterialTag";
 function ProductPreview({ data }) {
   let {
     product_name = data ? data.product_name : null,
@@ -15,7 +16,10 @@ function ProductPreview({ data }) {
     price = data ? data.price : null,
     origPrice = data ? data.orig_price : null,
     productID = data.productID,
+    isRawMat = data ? data.is_raw_mat : null,
   } = data || {};
+
+  console.log("DATA PROD", data);
 
   let image = null;
   if (data.ProductImages[0]) {
@@ -42,10 +46,18 @@ function ProductPreview({ data }) {
       <Box sx={{ ...classes.main }}>
         {/*Prod Image */}
         <Box sx={{ ...classes.imageContainer }}>
+          {isRawMat ? (
+            <Box sx={{ position: "absolute", top: 5, left: 15, zIndex: 1 }}>
+              <RawMaterialTag small />
+            </Box>
+          ) : (
+            ""
+          )}
+
           <img
             src={image || require("../../assets/product_placeholder.jpg")}
             style={{ ...classes.image }}
-            alt="logo"
+            alt="product"
           />
         </Box>
         {/*Prod Details */}
