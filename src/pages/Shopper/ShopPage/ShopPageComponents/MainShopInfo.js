@@ -298,7 +298,6 @@ const classes = {
     height: 230,
     width: 900,
     "@media (max-width: 900px)": {
-      height: 230,
       width: "100vw",
     },
   },

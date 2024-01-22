@@ -8,7 +8,10 @@ function RouterError() {
   const location = useLocation();
 
   return (
-    <Container id="error-page" sx={{ width: "100%", pt: 10 }}>
+    <Container
+      id="error-page"
+      sx={{ width: "100%", pt: 10, userSelect: "none" }}
+    >
       <img
         src={require("../../assets/404.jpg")}
         alt="404 Error"

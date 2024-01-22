@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography, useMediaQuery } from "@mui/material";
 import React from "react";
 import MapData from "../../../../utils/MapData";
 import { useRequestProcessor } from "../../../../hooks/useRequestProcessor";
@@ -8,6 +8,7 @@ import ProductPreview from "../../../../components/Containers/ProductPreview";
 import theme from "../../../../Theme";
 
 function RelatedRawMats({ categoryID }) {
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   // API CALL GET ALL FEATURED PROD
   const { useCustomQuery } = useRequestProcessor();
   const axiosPrivate = useAxiosPrivate();
@@ -43,8 +44,9 @@ function RelatedRawMats({ categoryID }) {
         component={ProductPreview}
         idName={"productID"}
         horizontal
-        height={350}
+        height={isSmallScreen ? 350 : 450}
         sortByField={"total_sold"}
+        containerStyles={{ width: 210 }}
       />
     </Stack>
   );

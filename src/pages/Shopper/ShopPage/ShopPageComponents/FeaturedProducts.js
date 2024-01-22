@@ -2,12 +2,13 @@ import React from "react";
 import { useRequestProcessor } from "../../../../hooks/useRequestProcessor";
 import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
 import { LoadingCircle } from "../../../../components/Loading/Loading";
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography, useMediaQuery } from "@mui/material";
 import theme from "../../../../Theme";
 import ProductPreview from "../../../../components/Containers/ProductPreview";
 import MapData from "../../../../utils/MapData";
 
 function FeaturedProducts({ selectedShopID }) {
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   // API CALL GET ALL FEATURED PROD
   const { useCustomQuery } = useRequestProcessor();
   const axiosPrivate = useAxiosPrivate();
@@ -48,8 +49,9 @@ function FeaturedProducts({ selectedShopID }) {
           component={ProductPreview}
           idName={"productID"}
           horizontal
-          height={350}
+          height={isSmallScreen ? 350 : 400}
           sortByField={"total_sold"}
+          containerStyles={{ width: 210 }}
         />
       </Stack>
     </div>

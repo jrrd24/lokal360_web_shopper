@@ -1,5 +1,11 @@
 import React from "react";
-import { Box, ButtonBase, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  ButtonBase,
+  Stack,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import theme from "../../Theme";
 import TruncateString from "../../utils/TruncateString";
 import { StarHalf } from "@mui/icons-material";
@@ -8,7 +14,9 @@ import { useNavigate } from "react-router-dom";
 import styles from "../../css/Styles.module.css";
 import { BASE_URL } from "../../api/Api";
 import RawMaterialTag from "../Tags/RawMaterialTag";
-function ProductPreview({ data }) {
+
+function ProductPreview({ data, containerStyles }) {
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   let {
     product_name = data ? data.product_name : null,
     rating = data ? data.rating : null,
@@ -18,8 +26,6 @@ function ProductPreview({ data }) {
     productID = data.productID,
     isRawMat = data ? data.is_raw_mat : null,
   } = data || {};
-
-  console.log("DATA PROD", data);
 
   let image = null;
   if (data.ProductImages[0]) {
@@ -32,9 +38,10 @@ function ProductPreview({ data }) {
   return (
     <ButtonBase
       onClick={onClick}
-      className={`${styles.grow}`}
       sx={{
         ...theme.components.buttonBase.main,
+        width: containerStyles?.width || "100%",
+        maxWidth: 210,
         //change ripple color
         "&:hover, &:focus": {
           "& .MuiTouchRipple-root": {
@@ -45,9 +52,15 @@ function ProductPreview({ data }) {
     >
       <Box sx={{ ...classes.main }}>
         {/*Prod Image */}
-        <Box sx={{ ...classes.imageContainer }}>
+        <Box
+          sx={{
+            ...classes.imageContainer,
+            height: isSmallScreen ? 200 : 250,
+            width: "100%",
+          }}
+        >
           {isRawMat ? (
-            <Box sx={{ position: "absolute", top: 5, left: 15, zIndex: 1 }}>
+            <Box sx={{ position: "absolute", top: 10, left: 10, zIndex: 1 }}>
               <RawMaterialTag small />
             </Box>
           ) : (
@@ -56,10 +69,15 @@ function ProductPreview({ data }) {
 
           <img
             src={image || require("../../assets/product_placeholder.jpg")}
-            style={{ ...classes.image }}
+            style={{
+              ...classes.image,
+              height: isSmallScreen ? 200 : 250,
+              width: containerStyles?.width || "100%",
+            }}
             alt="product"
           />
         </Box>
+
         {/*Prod Details */}
         <Box sx={{ ...classes.prodDetailsContainer }}>
           <Stack spacing={1}>
@@ -83,7 +101,7 @@ function ProductPreview({ data }) {
           {/*Prod Price*/}
           <Box sx={{ ...classes.prodDetail }}>
             <Typography sx={{ fontSize: "inherit", alignItems: "baseline" }}>
-              <span style={{ ...classes.prodDetailBig }}>
+              <span style={{ ...classes.prodDetailBig, fontSize: "18px" }}>
                 <NumberFormat value={price || 0} isPeso />
               </span>
               &nbsp;&nbsp;
@@ -102,15 +120,18 @@ function ProductPreview({ data }) {
 
 const classes = {
   main: {
-    width: 160,
     backgroundColor: `${theme.palette.background.paper}`,
     borderRadius: "10px",
+    minWidth: "100%",
     border: `solid 1px ${theme.palette.text.ten}`,
+    borderBottom: `solid 3px ${theme.palette.text.ten}`,
     textAlign: "left",
+    "&:hover": {
+      borderBottom: `solid 3px ${theme.palette.primary.main}`,
+    },
   },
 
   imageContainer: {
-    height: 180,
     borderTopLeftRadius: "10px",
     borderTopRightRadius: "10px",
   },
@@ -118,8 +139,6 @@ const classes = {
   image: {
     objectFit: "cover",
     objectPosition: "center",
-    height: 180,
-    width: 160,
     borderTopLeftRadius: "10px",
     borderTopRightRadius: "10px",
     backgroundColor: `${theme.palette.background.paper}`,

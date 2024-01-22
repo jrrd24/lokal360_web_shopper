@@ -1,7 +1,12 @@
-import { Box, ButtonBase, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  ButtonBase,
+  Stack,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "../../css/Styles.module.css";
 import theme from "../../Theme";
 import TruncateString from "../../utils/TruncateString";
 import { DeliveryDining, FmdGood, StarHalf } from "@mui/icons-material";
@@ -21,14 +26,19 @@ function ShopContainer({ data }) {
   } = data || {};
 
   const navigate = useNavigate();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const onClick = () => {
     navigate(`/shop/${shopID}`);
   };
+
+  const width = isSmallScreen ? "100%" : 400;
   return (
     <ButtonBase
       onClick={onClick}
       sx={{
-        ...theme.components.buttonBase.large,
+        width: "100%",
+        maxWidth: 450,
+        minWidth: isSmallScreen ? 300 : 400,
         //change ripple color
         "&:hover, &:focus": {
           "& .MuiTouchRipple-root": {
@@ -39,7 +49,31 @@ function ShopContainer({ data }) {
     >
       <Box sx={{ ...classes.main }}>
         {/*Header Image */}
-        <Box sx={{ ...classes.imageContainer }}>
+        <Box sx={{ ...classes.imageContainer, position: "relative" }}>
+          <Box
+            sx={{
+              ...classes.prodDetail,
+              display: "flex",
+              flexDirection: isSmallScreen ? "column" : "row",
+              gap: isSmallScreen ? "4px" : "8px",
+              position: "absolute",
+              color: theme.palette.primary.main,
+            }}
+          >
+            {shipping_deliver_enabled && (
+              <Box sx={{ ...classes.shippingStatusContainer }}>
+                <DeliveryDining sx={{ ...classes.icon }} />
+                <Typography sx={{ fontSize: "inherit" }}>Delivery</Typography>
+              </Box>
+            )}
+
+            {shipping_pickup_enabled && (
+              <Box sx={{ ...classes.shippingStatusContainer }}>
+                <BiShoppingBag style={{ ...classes.icon }} />
+                <Typography sx={{ fontSize: "inherit" }}>Pick-Up</Typography>
+              </Box>
+            )}
+          </Box>
           <img
             src={
               header_img_link
@@ -55,7 +89,7 @@ function ShopContainer({ data }) {
         <Box sx={{ ...classes.detailsContainer }}>
           <Stack spacing={0.5}>
             {/*Prod Name */}
-            <Typography sx={{ ...classes.name }}>
+            <Typography sx={{ ...classes.prodName }}>
               <TruncateString str={shop_name || "NaN"} n={40} />
             </Typography>
 
@@ -73,36 +107,12 @@ function ShopContainer({ data }) {
 
               {/*Address */}
               <Box sx={{ ...classes.prodDetail }}>
-                <FmdGood sx={{ ...classes.pin }} />
+                <FmdGood sx={{ ...classes.icon }} />
                 <Typography sx={{ fontSize: "inherit" }}>
                   {address ? address : "- -"}
                 </Typography>
               </Box>
             </Stack>
-
-            <Box sx={{ ...classes.prodDetail, display: "flex", gap: "8px" }}>
-              {shipping_deliver_enabled && (
-                <Stack
-                  direction={"horizontal"}
-                  spacing={2}
-                  sx={{ ...classes.shipping }}
-                >
-                  <DeliveryDining sx={{ ...classes.pin }} />
-                  <Typography sx={{ fontSize: "inherit" }}>Delivery</Typography>
-                </Stack>
-              )}
-
-              {shipping_pickup_enabled && (
-                <Stack
-                  direction={"horizontal"}
-                  spacing={2}
-                  sx={{ ...classes.shipping }}
-                >
-                  <BiShoppingBag style={{ ...classes.pin }} />
-                  <Typography sx={{ fontSize: "inherit" }}>Pick-Up</Typography>
-                </Stack>
-              )}
-            </Box>
           </Stack>
         </Box>
       </Box>
@@ -112,22 +122,23 @@ function ShopContainer({ data }) {
 
 const classes = {
   main: {
-    width: 320,
+    width: "100%",
     backgroundColor: `${theme.palette.background.paper}`,
     borderRadius: "10px",
     border: `solid 1px ${theme.palette.text.ten}`,
     textAlign: "left",
   },
   imageContainer: {
-    height: 120,
+    height: 175,
+    width: "100%",
     borderTopLeftRadius: "10px",
     borderTopRightRadius: "10px",
   },
   image: {
     objectFit: "cover",
     objectPosition: "center",
-    height: 120,
-    width: 320,
+    height: 175,
+    width: "100%",
     borderTopLeftRadius: "10px",
     borderTopRightRadius: "10px",
     backgroundColor: `${theme.palette.background.paper}`,
@@ -144,18 +155,15 @@ const classes = {
     color: theme.palette.text.primary,
     fontWeight: "400",
     lineHeight: "16px",
-    letterSpacing: -0.3,
+    pb: 1,
   },
+
   star: {
     fontSize: "20px",
     fontWeight: 600,
     color: `${theme.palette.primary.main}`,
   },
-  pin: {
-    fontSize: "20px",
-    fontWeight: 600,
-    color: theme.palette.text.sixty,
-  },
+
   prodDetailBig: {
     fontSize: "14px",
     fontWeight: 600,
@@ -166,13 +174,26 @@ const classes = {
     fontSize: "12px",
     display: "flex",
     alignItems: "center",
-    color: `${theme.palette.text.sixty}`,
+    color: `${theme.palette.text.eighty}`,
+    top: 5,
+    right: 10,
   },
 
-  shipping: {
-    backgroundColor: theme.palette.text.ten,
+  shippingStatusContainer: {
+    display: "flex",
+    alignItems: "center",
+    gap: "4px",
+    backgroundColor: theme.palette.background.paper,
     p: 0.5,
     borderRadius: 2,
+    border: `2px solid ${theme.palette.primary.main}`,
+    borderRight: `4px solid ${theme.palette.primary.main}`,
+    borderBottom: `4px solid ${theme.palette.primary.main}`,
+  },
+  icon: {
+    fontSize: "20px",
+    fontWeight: 600,
+    color: theme.palette.primary.main,
   },
 };
 export default ShopContainer;

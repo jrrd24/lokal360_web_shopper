@@ -36,6 +36,7 @@ function ActiveAds() {
   return (
     <div>
       <Carousel
+        stopAutoPlayOnHover
         indicatorContainerProps={{
           style: {
             zIndex: 1,
@@ -51,9 +52,10 @@ function ActiveAds() {
               alt={item.ad_name}
               style={{
                 height: 300,
-                width: 900,
+                width: "100%",
                 borderRadius: 0,
                 objectFit: "cover",
+                p: 0,
               }}
             />
           ) : (

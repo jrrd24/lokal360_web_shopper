@@ -1,9 +1,14 @@
 import React from "react";
 import theme from "../../../Theme";
-import { Box, Stack } from "@mui/material";
+import { Box, Grid, Stack } from "@mui/material";
 import ActiveAds from "./HomepageComponents/ActiveAds";
 import Categories from "./HomepageComponents/Categories";
 import AllProducts from "./HomepageComponents/AllProducts";
+import HomepageLinks from "./HomepageComponents/HomepageLinks";
+import PartnerShops from "./HomepageComponents/PartnerShops";
+import BestSellers from "./HomepageComponents/BestSellers";
+import NewArrivals from "./HomepageComponents/NewArrivals";
+import ProductCategories from "./HomepageComponents/ProductCategories";
 
 function HomepageContent() {
   return (
@@ -11,6 +16,18 @@ function HomepageContent() {
       <Box sx={{ ...classes.main }}>
         <Stack spacing={3}>
           <ActiveAds />
+          <BestSellers />
+          <Grid container spacing={0}>
+            <Grid md={6} xs={12}>
+              <PartnerShops />
+            </Grid>
+            <Grid md={6} xs={12}>
+              <NewArrivals />
+            </Grid>
+          </Grid>
+
+          <HomepageLinks />
+          <ProductCategories />
           <Categories />
           <AllProducts />
         </Stack>
@@ -26,9 +43,8 @@ const classes = {
     justifyContent: "center",
   },
   main: {
-    maxWidth: 900,
-    width: 900,
-    "@media (max-width: 900px)": { width: "100%" },
+    maxWidth: 1200,
+    width: "100%",
   },
 };
 export default HomepageContent;

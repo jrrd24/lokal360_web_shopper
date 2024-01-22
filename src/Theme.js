@@ -9,7 +9,7 @@ const theme = createTheme({
     },
     secondary: {
       main: "#FFA732",
-      light: "#ffd14d",
+      light: "#FFE8C4",
       dark: "#ffae00",
       contrastText: "#ffffff",
     },
@@ -32,6 +32,7 @@ const theme = createTheme({
     active: { main: "#00FF00" },
     warning: { main: "#ffc107" },
     danger: { main: "#dc3545", delete: "#AB3130" },
+    info: { main: "#8293E3" },
     orange: { main: "#F18701" },
 
     //? Colors for promo type
