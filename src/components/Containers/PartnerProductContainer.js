@@ -91,12 +91,11 @@ const PartnerProductContainer = ({ data, color }) => {
         <Box sx={{ ...classes.imageContainer, position: "relative" }}>
           <img
             src={
-              image
-                ? image
-                : require("../../assets/product_placeholder_big.jpg")
+              image ? image : require("../../assets/product_placeholder.jpg")
             }
             style={{ ...classes.image }}
             alt="logo"
+            loading="lazy"
           />
         </Box>
 

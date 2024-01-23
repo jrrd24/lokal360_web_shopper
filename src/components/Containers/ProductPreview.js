@@ -11,7 +11,6 @@ import TruncateString from "../../utils/TruncateString";
 import { StarHalf } from "@mui/icons-material";
 import NumberFormat from "../../utils/NumberFormat";
 import { useNavigate } from "react-router-dom";
-import styles from "../../css/Styles.module.css";
 import { BASE_URL } from "../../api/Api";
 import RawMaterialTag from "../Tags/RawMaterialTag";
 
@@ -75,6 +74,7 @@ function ProductPreview({ data, containerStyles }) {
               width: containerStyles?.width || "100%",
             }}
             alt="product"
+            loading="lazy"
           />
         </Box>
 

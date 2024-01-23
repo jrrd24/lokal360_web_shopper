@@ -2,7 +2,6 @@ import React from "react";
 import theme from "../../../Theme";
 import { Box, Grid, Stack } from "@mui/material";
 import ActiveAds from "./HomepageComponents/ActiveAds";
-import Categories from "./HomepageComponents/Categories";
 import AllProducts from "./HomepageComponents/AllProducts";
 import HomepageLinks from "./HomepageComponents/HomepageLinks";
 import PartnerShops from "./HomepageComponents/PartnerShops";
@@ -28,7 +27,6 @@ function HomepageContent() {
 
           <HomepageLinks />
           <ProductCategories />
-          <Categories />
           <AllProducts />
         </Stack>
       </Box>

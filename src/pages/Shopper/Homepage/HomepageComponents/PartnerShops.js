@@ -46,6 +46,7 @@ const PartnerShops = () => {
       <Swiper
         slidesPerView={2}
         spaceBetween={8}
+        lazy={true}
         autoplay={{
           delay: 3000,
           disableOnInteraction: false,

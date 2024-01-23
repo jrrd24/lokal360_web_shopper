@@ -46,10 +46,11 @@ const PartnerShopContainer = ({ data }) => {
             src={
               logo_img_link
                 ? `${BASE_URL}/${logo_img_link}`
-                : require("../../assets/product_placeholder_big.jpg")
+                : require("../../assets/product_placeholder.jpg")
             }
             style={{ ...classes.image }}
             alt="logo"
+            loading="lazy"
           />
         </Box>
 

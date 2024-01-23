@@ -18,6 +18,7 @@ import {
 import useAuth from "../../hooks/useAuth";
 import Searchbar from "./Searchbar";
 import { AccountCircle, MoreVert, ShoppingCart } from "@mui/icons-material";
+import Footer from "./Footer";
 
 function HideOnScroll(props) {
   const { children, window } = props;
@@ -150,6 +151,8 @@ const CustomAppbar = React.memo(
             )}
           </Box>
         </Container>
+
+        <Footer />
       </React.Fragment>
     );
   }
