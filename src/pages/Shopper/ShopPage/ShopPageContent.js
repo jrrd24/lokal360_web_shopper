@@ -1,4 +1,11 @@
-import { Box, Stack, Tab, Tabs, Typography } from "@mui/material";
+import {
+  Box,
+  Stack,
+  Tab,
+  Tabs,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import theme from "../../../Theme";
 import { useRequestProcessor } from "../../../hooks/useRequestProcessor";
@@ -10,12 +17,17 @@ import useAlert from "../../../hooks/useAlert";
 import ShopAds from "./ShopPageComponents/ShopAds";
 import FeaturedProducts from "./ShopPageComponents/FeaturedProducts";
 import ActiveVouchers from "./ShopPageComponents/ActiveVouchers";
-import PropTypes from "prop-types";
 import AllShopProducts from "./ShopPageComponents/AllShopProducts";
-import AboutUs from "./ShopPageComponents/AboutUs";
 import ViewLocationDialog from "./ViewLocationDialog/ViewLocationDialog";
+import ShopInfo from "./ShopPageComponents/ShopInfo";
+import ShopBestSellers from "./ShopPageComponents/ShopBestSellers";
+import ShopNewArrival from "./ShopPageComponents/ShopNewArrival";
 
 function ShopPageContent({ selectedShopID, setShopName }) {
+  const isLg = useMediaQuery((theme) => theme.breakpoints.down("lg"));
+  const allShopProductsRef = React.useRef(null);
+  const shopInfoRef = React.useRef(null);
+
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
     setOpen(true);
@@ -28,6 +40,11 @@ function ShopPageContent({ selectedShopID, setShopName }) {
   const [value, setValue] = useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    if (newValue === 1) {
+      allShopProductsRef.current.scrollIntoView({ behavior: "smooth" });
+    } else if (newValue === 2) {
+      shopInfoRef.current.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   //API CALL GET MAIN SHOP DATA
@@ -89,7 +106,16 @@ function ShopPageContent({ selectedShopID, setShopName }) {
       <Box sx={{ ...classes.pageContainer }}>
         <Box sx={{ ...classes.main }}>
           <Stack spacing={5}>
-            <Stack spacing={2}>
+            <Stack
+              spacing={2}
+              sx={{
+                backgroundColor: theme.palette.background.paper,
+                borderBottomLeftRadius: 5,
+                borderBottomRightRadius: 5,
+                "@media (max-width: 900px)": { width: "100vw", ml: -6 },
+                "@media (max-width: 600px)": { width: "100vw", ml: -2 },
+              }}
+            >
               <MainShopInfo
                 showAlert={handleShowAlert}
                 selectedShopID={selectedShopID}
@@ -107,23 +133,30 @@ function ShopPageContent({ selectedShopID, setShopName }) {
               <TabsContainer value={value} handleChange={handleChange} />
             </Stack>
 
-            <CustomTabPanel value={value} index={0}>
-              <Stack spacing={3}>
-                <FeaturedProducts selectedShopID={selectedShopID} />
+            <FeaturedProducts selectedShopID={selectedShopID} />
 
+            <div ref={shopInfoRef} />
+            <Box
+              sx={{
+                display: "flex",
+                gap: isLg ? 5 : 2,
+                flexDirection: isLg ? "column" : "row",
+              }}
+            >
+              <Box width={isLg ? "100%" : 600}>
                 <ShopAds selectedShopID={selectedShopID} />
-
                 <ActiveVouchers selectedShopID={selectedShopID} />
-              </Stack>
-            </CustomTabPanel>
+              </Box>
+              <Box width={isLg ? "100%" : 500}>
+                <ShopInfo data={data.shopInfo} />
+              </Box>
+            </Box>
 
-            <CustomTabPanel value={value} index={1}>
-              <AllShopProducts selectedShopID={selectedShopID} set />
-            </CustomTabPanel>
+            <ShopBestSellers selectedShopID={selectedShopID} />
+            <ShopNewArrival selectedShopID={selectedShopID} />
 
-            <CustomTabPanel value={value} index={2}>
-              <AboutUs data={data.shopInfo} />
-            </CustomTabPanel>
+            <div ref={allShopProductsRef} />
+            <AllShopProducts selectedShopID={selectedShopID} />
           </Stack>
         </Box>
       </Box>
@@ -154,9 +187,8 @@ const classes = {
     justifyContent: "center",
   },
   main: {
-    maxWidth: 900,
-    width: 900,
-    "@media (max-width: 900px)": { width: "100%" },
+    maxWidth: 1200,
+    width: "100%",
     textAlign: "left",
   },
   tab: {
@@ -169,7 +201,7 @@ const classes = {
     height: 50,
     width: "100%",
     backgroundColor: `${theme.palette.background.paper}`,
-    borderRadius: 5,
+    borderRadius: 3,
     mt: 2,
   },
 };
@@ -177,7 +209,7 @@ const classes = {
 function TabsContainer({ value, handleChange }) {
   return (
     <Tabs
-      value={value}
+      value={0}
       onChange={handleChange}
       indicatorColor="primary"
       textColor="inherit"
@@ -206,32 +238,11 @@ function TabsContainer({ value, handleChange }) {
             About Us
           </Typography>
         }
-        {...a11yProps(1)}
+        {...a11yProps(2)}
       />
     </Tabs>
   );
 }
-function CustomTabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && <Box>{children}</Box>}
-    </div>
-  );
-}
-
-CustomTabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-};
 
 function a11yProps(index) {
   return {

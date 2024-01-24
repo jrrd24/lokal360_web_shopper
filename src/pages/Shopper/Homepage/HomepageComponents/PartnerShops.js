@@ -9,7 +9,8 @@ import theme from "../../../../Theme";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
-import { Pagination, Autoplay } from "swiper/modules";
+import "swiper/css/navigation";
+import { Pagination, Autoplay, Navigation } from "swiper/modules";
 
 const PartnerShops = () => {
   const isMd = useMediaQuery(theme.breakpoints.down("md"));
@@ -47,6 +48,7 @@ const PartnerShops = () => {
         slidesPerView={2}
         spaceBetween={8}
         lazy={true}
+        navigation={true}
         autoplay={{
           delay: 3000,
           disableOnInteraction: false,
@@ -73,10 +75,14 @@ const PartnerShops = () => {
             spaceBetween: 10,
           },
         }}
-        modules={[Autoplay, Pagination]}
+        modules={[Autoplay, Pagination, Navigation]}
         style={{
           "--swiper-pagination-color": theme.palette.primary.main,
           "--swiper-pagination-bullet-size": "10px",
+          "--swiper-navigation-size": "25px",
+          "--swiper-navigation-top-offset": "95%",
+          "--swiper-navigation-sides-offset": "10px",
+          "--swiper-navigation-color": theme.palette.primary.main,
           paddingBottom: 40,
         }}
       >

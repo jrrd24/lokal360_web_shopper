@@ -120,7 +120,7 @@ function MainShopInfo({
       {/**Images */}
       <Box sx={{ ...classes.main }}>
         {/**Header Container */}
-        <Box>
+        <Box sx={{ width: "100vw" }}>
           <Zoom>
             <Box sx={{ ...classes.headerContainer }}>
               <img
@@ -187,12 +187,12 @@ function MainShopInfo({
               <span style={{ ...classes.prodDetailBig }}>
                 &nbsp;{followerCount}
               </span>
-              &nbsp;Follower
+              &nbsp;{followerCount === 1 ? "Follower" : "Followers"}
             </Typography>
           </Box>
         </Stack>
 
-        <Box sx={{ ...classes.prodDetail, display: "flex", gap: "8px" }}>
+        {/* <Box sx={{ ...classes.prodDetail, display: "flex", gap: "8px" }}>
           {deliver && (
             <Stack
               direction={"horizontal"}
@@ -214,7 +214,7 @@ function MainShopInfo({
               <Typography sx={{ fontSize: "inherit" }}>Pick-Up</Typography>
             </Stack>
           )}
-        </Box>
+        </Box> */}
       </Box>
     </div>
   );
@@ -296,15 +296,21 @@ const classes = {
 
   headerContainer: {
     height: 230,
-    width: 900,
+    width: "100%",
     "@media (max-width: 900px)": {
       width: "100vw",
     },
   },
 
+  header: {
+    height: "100%",
+    width: "100%",
+    objectFit: "cover",
+  },
+
   logoContainer: {
     position: "absolute",
-    marginTop: 24,
+    marginTop: 20,
     pl: 5,
     height: 150,
     width: 190,
@@ -327,19 +333,14 @@ const classes = {
     border: `2px solid ${theme.palette.text.ten}`,
   },
 
-  header: {
-    height: "100%",
-    width: "100%",
-    objectFit: "cover",
-  },
-
   detailsContainer: {
     pl: 26,
     pt: 1,
-    minHeight: 110,
+    minHeight: 75,
+    backgroundColor: theme.palette.background.paper,
     "@media (max-width: 900px)": {
       pl: 0,
-      pt: 15,
+      pt: 12,
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
@@ -347,7 +348,7 @@ const classes = {
       minHeight: "100%",
     },
     "@media (max-width: 400px)": {
-      pt: 12,
+      pt: 8,
     },
   },
 

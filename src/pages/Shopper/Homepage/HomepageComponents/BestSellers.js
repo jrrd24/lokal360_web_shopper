@@ -9,7 +9,8 @@ import theme from "../../../../Theme";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
-import { Pagination, Autoplay } from "swiper/modules";
+import "swiper/css/navigation";
+import { Pagination, Autoplay, Navigation } from "swiper/modules";
 import PartnerProductContainer from "../../../../components/Containers/PartnerProductContainer";
 
 const BestSellers = () => {
@@ -52,6 +53,7 @@ const BestSellers = () => {
         slidesPerView={2}
         spaceBetween={8}
         lazy={true}
+        navigation={true}
         autoplay={{
           delay: 2500,
           disableOnInteraction: false,
@@ -78,10 +80,14 @@ const BestSellers = () => {
             spaceBetween: 10,
           },
         }}
-        modules={[Autoplay, Pagination]}
+        modules={[Autoplay, Pagination, Navigation]}
         style={{
           "--swiper-pagination-color": theme.palette.secondary.main,
           "--swiper-pagination-bullet-size": "10px",
+          "--swiper-navigation-size": "25px",
+          "--swiper-navigation-top-offset": "95%",
+          "--swiper-navigation-sides-offset": "10px",
+          "--swiper-navigation-color": theme.palette.secondary.main,
           paddingBottom: 40,
         }}
       >

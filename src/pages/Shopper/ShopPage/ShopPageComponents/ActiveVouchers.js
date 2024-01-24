@@ -6,6 +6,13 @@ import { BASE_URL } from "../../../../api/Api";
 import { Box, Stack, Typography } from "@mui/material";
 import MapData from "../../../../utils/MapData";
 import VoucherContainer from "../../../../components/Containers/VoucherContainer";
+import theme from "../../../../Theme";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import { Pagination, Autoplay, Navigation } from "swiper/modules";
 
 function ActiveVouchers({ selectedShopID }) {
   // API CALL GET ALL ACTIVE SHOP VOUCHERS
@@ -50,19 +57,72 @@ function ActiveVouchers({ selectedShopID }) {
   return (
     <Stack spacing={1} direction={"column"} sx={{ ...classes.main }}>
       {/*Section Name */}
-      <Stack direction={"row"} sx={{ ...classes.sectionName }}>
+      {/* <Stack direction={"row"} sx={{ ...classes.sectionName }}>
         <Typography variant="sectionTitle">Special Deals For You</Typography>
-      </Stack>
+      </Stack> */}
 
       <Box>
-        <MapData
+        {/* <MapData
           inputData={processedVouchers}
           component={VoucherContainer}
           sortByField={"start_date"}
           idName={"voucherID"}
           horizontal
           height={190}
-        />
+        /> */}
+
+        <Swiper
+          slidesPerView={1.15}
+          spaceBetween={8}
+          lazy={true}
+          navigation={true}
+          autoplay={{
+            delay: 2500,
+            disableOnInteraction: false,
+          }}
+          pagination={{
+            clickable: true,
+            dynamicBullets: true,
+          }}
+          breakpoints={{
+            400: {
+              slidesPerView: 1.4,
+              spaceBetween: 20,
+            },
+            640: {
+              slidesPerView: 2.05,
+              spaceBetween: 20,
+            },
+            768: {
+              slidesPerView: 2.5,
+              spaceBetween: 10,
+            },
+            1024: {
+              slidesPerView: 3.25,
+              spaceBetween: 10,
+            },
+            1200: {
+              slidesPerView: 2.1,
+              spaceBetween: 10,
+            },
+          }}
+          modules={[Autoplay, Pagination, Navigation]}
+          style={{
+            "--swiper-pagination-color": theme.palette.primary.main,
+            "--swiper-pagination-bullet-size": "10px",
+            "--swiper-navigation-size": "25px",
+            "--swiper-navigation-top-offset": "92%",
+            "--swiper-navigation-sides-offset": "10px",
+            "--swiper-navigation-color": theme.palette.primary.main,
+            paddingBottom: 45,
+          }}
+        >
+          {processedVouchers.map((voucher) => (
+            <SwiperSlide>
+              <VoucherContainer key={voucher.voucherID} data={voucher} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </Box>
     </Stack>
   );
@@ -71,6 +131,7 @@ function ActiveVouchers({ selectedShopID }) {
 const classes = {
   main: {
     width: "100%",
+    pt: 2,
     "@media (max-width: 1516px)": {
       justifyContent: "center",
     },

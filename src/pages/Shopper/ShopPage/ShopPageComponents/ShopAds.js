@@ -1,7 +1,7 @@
 import React from "react";
 import { useRequestProcessor } from "../../../../hooks/useRequestProcessor";
 import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
-import {  Box, useMediaQuery } from "@mui/material";
+import { Box, useMediaQuery } from "@mui/material";
 import Carousel from "react-material-ui-carousel";
 import { LoadingCircle } from "../../../../components/Loading/Loading";
 import { BASE_URL } from "../../../../api/Api";
@@ -51,8 +51,8 @@ function ShopAds({ selectedShopID }) {
               alt={item.ad_name}
               style={{
                 height: 300,
-                width: 900,
-                borderRadius: 0,
+                width: "100%",
+                borderRadius: 10,
                 objectFit: "cover",
               }}
             />
@@ -61,7 +61,7 @@ function ShopAds({ selectedShopID }) {
               key={i}
               sx={{
                 height: 300,
-                width: 900,
+                width: "100%",
                 "@media (max-width: 600px)": {
                   height: "auto",
                   width: "100%",
@@ -71,7 +71,12 @@ function ShopAds({ selectedShopID }) {
               <img
                 src={item.ad_image}
                 alt={item.ad_name}
-                style={{ height: "100%", width: "100%", objectFit: "cover" }}
+                style={{
+                  height: "100%",
+                  width: "100%",
+                  objectFit: "cover",
+                  borderRadius: 10,
+                }}
               />
             </Box>
           )

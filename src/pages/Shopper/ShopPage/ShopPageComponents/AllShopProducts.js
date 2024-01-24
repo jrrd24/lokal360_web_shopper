@@ -38,28 +38,14 @@ function AllShopProducts({ selectedShopID }) {
       <ShopCategories
         selectedShopID={selectedShopID}
         setSelectedCategory={setSelectedCategory}
-        selectedCategory= {selectedCategory}
+        selectedCategory={selectedCategory}
       />
       <Box
         sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
       >
-        <Grid container spacing={0} sx={{ display: "flex", flexWrap: "wrap" }}>
-          {productsData.map((product, index) => (
-            <Grid
-              item
-              xs={6}
-              sm={4}
-              md={2.4}
-              key={index}
-              sx={{
-                my: 2,
-
-                "@media (max-width: 900px)": {
-                  justifyContent: "center",
-                  my: 2,
-                },
-              }}
-            >
+        <Grid container spacing={2}>
+          {productsData?.map((product, index) => (
+            <Grid item xs={6} sm={4} md={2.4} key={index} sx={{ my: 2 }}>
               <ProductPreview data={product} />
             </Grid>
           ))}

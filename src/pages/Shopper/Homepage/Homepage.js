@@ -18,10 +18,7 @@ const queryClient = new QueryClient({
 function Homepage() {
   //Set Document Title
   useEffect(() => {
-    document.title = "Lokal 360";
-    return () => {
-      document.title = "Lokal 360";
-    };
+    document.title = "Lokal 360 | Buy Local For Locals";
   }, []);
 
   return (

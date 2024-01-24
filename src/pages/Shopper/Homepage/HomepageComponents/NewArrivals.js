@@ -8,11 +8,11 @@ import theme from "../../../../Theme";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
-import { Pagination, Autoplay } from "swiper/modules";
+import "swiper/css/navigation";
+import { Pagination, Autoplay, Navigation } from "swiper/modules";
 import PartnerProductContainer from "../../../../components/Containers/PartnerProductContainer";
 
 const NewArrivals = () => {
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const isMd = useMediaQuery(theme.breakpoints.down("md"));
   const { useCustomQuery } = useRequestProcessor();
   const axiosPrivate = useAxiosPrivate();
@@ -50,6 +50,7 @@ const NewArrivals = () => {
         slidesPerView={2}
         spaceBetween={8}
         lazy={true}
+        navigation={true}
         autoplay={{
           delay: 3500,
           disableOnInteraction: false,
@@ -76,10 +77,14 @@ const NewArrivals = () => {
             spaceBetween: 10,
           },
         }}
-        modules={[Autoplay, Pagination]}
+        modules={[Autoplay, Pagination, Navigation]}
         style={{
           "--swiper-pagination-color": theme.palette.info.main,
           "--swiper-pagination-bullet-size": "10px",
+          "--swiper-navigation-size": "25px",
+          "--swiper-navigation-top-offset": "95%",
+          "--swiper-navigation-sides-offset": "10px",
+          "--swiper-navigation-color": theme.palette.info.main,
           paddingBottom: 40,
         }}
       >

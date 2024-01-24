@@ -14,10 +14,17 @@ import {
   AppBar,
   Container,
   IconButton,
+  Fade,
+  Fab,
 } from "@mui/material";
 import useAuth from "../../hooks/useAuth";
 import Searchbar from "./Searchbar";
-import { AccountCircle, MoreVert, ShoppingCart } from "@mui/icons-material";
+import {
+  AccountCircle,
+  KeyboardArrowUp,
+  MoreVert,
+  ShoppingCart,
+} from "@mui/icons-material";
 import Footer from "./Footer";
 
 function HideOnScroll(props) {
@@ -38,6 +45,48 @@ HideOnScroll.propTypes = {
   window: PropTypes.func,
 };
 
+function ScrollTop(props) {
+  const { children, window } = props;
+  // Note that you normally won't need to set the window ref as useScrollTrigger
+  // will default to window.
+  // This is only being set here because the demo is in an iframe.
+  const trigger = useScrollTrigger({
+    target: window ? window() : undefined,
+    disableHysteresis: true,
+    threshold: 100,
+  });
+
+  const handleClick = (event) => {
+    const anchor = (event.target.ownerDocument || document).querySelector(
+      "#back-to-top-anchor"
+    );
+
+    if (anchor) {
+      anchor.scrollIntoView({
+        block: "center",
+        behavior: "smooth",
+      });
+    }
+  };
+
+  return (
+    <Fade in={trigger}>
+      <Box
+        onClick={handleClick}
+        role="presentation"
+        sx={{ position: "fixed", bottom: 16, right: 16, zIndex: 100 }}
+      >
+        {children}
+      </Box>
+    </Fade>
+  );
+}
+
+ScrollTop.propTypes = {
+  children: PropTypes.element.isRequired,
+  window: PropTypes.func,
+};
+
 const CustomAppbar = React.memo(
   ({ component: MainComponent, isCart, isHome }, props) => {
     const navigate = useNavigate();
@@ -46,22 +95,14 @@ const CustomAppbar = React.memo(
         <CssBaseline />
         <HideOnScroll {...props}>
           <AppBar
+            elevation={0}
             sx={{
-              backgroundColor: isHome
-                ? theme.palette.primary.main
-                : theme.palette.background.paper,
+              backgroundColor: theme.palette.primary.main,
               display: "flex",
               justifyContent: "center",
             }}
           >
-            <Toolbar
-              sx={{
-                backgroundColor: isHome
-                  ? theme.palette.primary.main
-                  : theme.palette.background.paper,
-                transition: "background-color 0.3s ease",
-              }}
-            >
+            <Toolbar sx={{ backgroundColor: theme.palette.primary.main }}>
               {/*Branding Logo */}
               <IconButton
                 sx={{ ...classes.brandingLogo }}
@@ -89,11 +130,7 @@ const CustomAppbar = React.memo(
                     onClick={() => {
                       navigate(`/cart`);
                     }}
-                    sx={{
-                      color: isHome
-                        ? theme.palette.background.paper
-                        : "primary",
-                    }}
+                    sx={{ color: theme.palette.background.paper }}
                   >
                     <ShoppingCart />
                   </IconButton>
@@ -105,11 +142,7 @@ const CustomAppbar = React.memo(
                     onClick={() => {
                       navigate(`/profile/`);
                     }}
-                    sx={{
-                      color: isHome
-                        ? theme.palette.background.paper
-                        : "primary",
-                    }}
+                    sx={{ color: theme.palette.background.paper }}
                   >
                     <AccountCircle />
                   </IconButton>
@@ -131,7 +164,7 @@ const CustomAppbar = React.memo(
             </Toolbar>
           </AppBar>
         </HideOnScroll>
-        <Toolbar />
+        <Toolbar id="back-to-top-anchor" />
         <Container>
           {/*MAIN */}
           <Box component="main" sx={{ ...classes.mainComponentContainer }}>
@@ -153,6 +186,12 @@ const CustomAppbar = React.memo(
         </Container>
 
         <Footer />
+
+        <ScrollTop {...props}>
+          <Fab size="small" aria-label="scroll back to top" color="primary">
+            <KeyboardArrowUp color="white" />
+          </Fab>
+        </ScrollTop>
       </React.Fragment>
     );
   }

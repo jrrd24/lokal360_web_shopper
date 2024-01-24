@@ -1,28 +1,27 @@
+import { Box, Stack, Typography, useMediaQuery } from "@mui/material";
 import React from "react";
+import { LoadingCircle } from "../../../../components/Loading/Loading";
 import { useRequestProcessor } from "../../../../hooks/useRequestProcessor";
 import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
-import { LoadingCircle } from "../../../../components/Loading/Loading";
-import { Box, Stack, Typography, useMediaQuery } from "@mui/material";
-import theme from "../../../../Theme";
 import ProductPreview from "../../../../components/Containers/ProductPreview";
-
+import theme from "../../../../Theme";
+// Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Pagination, Navigation } from "swiper/modules";
 
-function FeaturedProducts({ selectedShopID }) {
-  // API CALL GET ALL FEATURED PROD
+const ShopBestSellers = ({ selectedShopID }) => {
   const { useCustomQuery } = useRequestProcessor();
   const axiosPrivate = useAxiosPrivate();
 
   const { data: productData, isLoading } = useCustomQuery(
-    "getFeaturedProducts",
+    "getShopBestSellers",
     () =>
       axiosPrivate
         .get(
-          `/api/product/get_all_featured/?shopID=${selectedShopID}&shopperView=true`
+          `/api/shopper_get/all_products/?filterBestSellers=true&limit=10&shopID=${selectedShopID}`
         )
         .then((res) => res.data),
     { enabled: true }
@@ -32,20 +31,12 @@ function FeaturedProducts({ selectedShopID }) {
     return <LoadingCircle />;
   }
 
-  if (
-    !productData ||
-    !productData.allFeatured ||
-    productData.allFeatured.length === 0
-  ) {
-    return null;
-  }
-
   return (
     <div>
-      <Stack spacing={2} direction={"column"}>
+      <Stack spacing={2} direction={"column"} sx={{ ...classes.container }}>
         {/*Section Name */}
         <Box direction={"row"} sx={{ ...theme.components.box.sectionName }}>
-          <Typography variant="sectionTitle">Featured Products</Typography>
+          <Typography variant="sectionTitle">Best Sellers</Typography>
         </Box>
 
         <Swiper
@@ -86,7 +77,7 @@ function FeaturedProducts({ selectedShopID }) {
             paddingBottom: 45,
           }}
         >
-          {productData?.allFeatured.map((product) => (
+          {productData.map((product) => (
             <SwiperSlide>
               <ProductPreview key={product.productID} data={product} />
             </SwiperSlide>
@@ -95,6 +86,20 @@ function FeaturedProducts({ selectedShopID }) {
       </Stack>
     </div>
   );
-}
+};
 
-export default FeaturedProducts;
+const classes = {
+  container: {
+    p: 3,
+    backgroundColor: theme.palette.background.paper,
+    borderRadius: 3,
+    display: "flex",
+    flexDirection: "column",
+    gap: "16px",
+    textAlign: "Left",
+    border: `solid 1px ${theme.palette.text.ten}`,
+    borderBottom: `solid 3px ${theme.palette.text.ten}`,
+  },
+};
+
+export default ShopBestSellers;

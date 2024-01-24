@@ -53,7 +53,7 @@ function ActiveAds() {
               style={{
                 height: 300,
                 width: "100%",
-                borderRadius: 0,
+                borderRadius: 10,
                 objectFit: "cover",
                 p: 0,
               }}
@@ -73,7 +73,12 @@ function ActiveAds() {
               <img
                 src={item.ad_image}
                 alt={item.ad_name}
-                style={{ height: "100%", width: "100%", objectFit: "cover" }}
+                style={{
+                  height: "100%",
+                  width: "100%",
+                  objectFit: "cover",
+                  borderRadius: 10,
+                }}
               />
             </Box>
           )
