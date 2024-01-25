@@ -32,6 +32,7 @@ function ShopCategoryContainer({
             : theme.palette.background.paper,
         borderRadius: 5,
         px: 5,
+        border: `2px solid ${theme.palette.text.ten}`,
         ...hoverStyles,
       }}
     >

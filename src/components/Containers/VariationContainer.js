@@ -1,4 +1,4 @@
-import { Box, ButtonBase, Typography } from "@mui/material";
+import { ButtonBase, Typography } from "@mui/material";
 import React from "react";
 import { BASE_URL } from "../../api/Api";
 import theme from "../../Theme";
@@ -24,8 +24,8 @@ function VariationContainer({
       <ButtonBase
         onClick={onClick}
         sx={{
-          height: 60,
-          p: 1,
+          minHeight: 60,
+          p: 0.5,
           width: "100%",
           borderRadius: 2,
           backgroundColor:
@@ -37,10 +37,11 @@ function VariationContainer({
           justifyContent: "left",
           textAlign: "left",
           gap: "8px",
+          mr: 2,
           border:
             selectedVariation === data?.prodVariationID
               ? `2px solid ${theme.palette.primary.main}`
-              : "",
+              : `2px solid ${theme.palette.background.paper}`,
         }}
         disabled={data?.amt_on_hand === 0}
       >
@@ -61,34 +62,10 @@ function VariationContainer({
         </Zoom>
         <Typography
           varitaion="sectionTitleSmall"
-          sx={{ p: 0, whiteSpace: "nowrap" }}
+          sx={{ p: 0, whiteSpace: "wrap" }}
         >
           {data?.var_name}
         </Typography>
-        {data?.amt_on_hand === 0 ? (
-          <Box
-            sx={{
-              height: 60,
-              width: "95%",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: 2,
-              backgroundColor: theme.palette.text.sixty,
-              position: "absolute",
-            }}
-          >
-            <Typography
-              varitaion="sectionTitleSmall"
-              color="white"
-              sx={{ opacity: "80%" }}
-            >
-              Out Of Stock
-            </Typography>
-          </Box>
-        ) : (
-          ""
-        )}
       </ButtonBase>
     </div>
   );

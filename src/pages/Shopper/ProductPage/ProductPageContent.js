@@ -11,6 +11,7 @@ import ProductInfo from "./ProductPageComponents/ProductInfo";
 import CustomAlert from "../../../components/CustomAlert";
 import useAlert from "../../../hooks/useAlert";
 import RelatedRawMats from "./ProductPageComponents/RelatedRawMats";
+import ShopLinkAndDescription from "./ProductPageComponents/ShopLinkAndDescription";
 
 function ProductPageContent({ selectedProductID, setProductName }) {
   const useIsMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
@@ -82,7 +83,15 @@ function ProductPageContent({ selectedProductID, setProductName }) {
         <Box sx={{ ...classes.main }}>
           <Stack spacing={3}>
             {/**Product Image and Info */}
-            <Stack spacing={2} direction={useIsMobile ? "column" : "row"}>
+            <Stack
+              spacing={3}
+              direction={useIsMobile ? "column" : "row"}
+              sx={{
+                py: useIsMobile ? 1 : 2,
+                px: useIsMobile ? 1 : 3,
+                ...classes.sectionContainer,
+              }}
+            >
               <ProductImage
                 thumbnailPath={product_thumbnail}
                 thumbnail={Images[0].prod_image}
@@ -96,6 +105,7 @@ function ProductPageContent({ selectedProductID, setProductName }) {
               </Box>
             </Stack>
 
+            <ShopLinkAndDescription data={data} />
             {/**Related Raw Materials */}
             <RelatedRawMats categoryID={data?.categoryID} />
           </Stack>
@@ -119,10 +129,18 @@ const classes = {
     display: "flex",
     justifyContent: "center",
   },
+
+  sectionContainer: {
+    width: "100%",
+    backgroundColor: theme.palette.background.paper,
+    borderRadius: 3,
+    border: `solid 1px ${theme.palette.text.ten}`,
+    borderBottom: `solid 3px ${theme.palette.text.ten}`,
+  },
   main: {
     maxWidth: 1200,
     width: 1200,
-    "@media (max-width: 900px)": { width: "100%" },
+    "@media (max-width: 1200px)": { width: "100%" },
     textAlign: "left",
   },
   tab: {

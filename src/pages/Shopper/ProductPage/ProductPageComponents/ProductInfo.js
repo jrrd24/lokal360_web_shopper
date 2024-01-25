@@ -91,202 +91,165 @@ function ProductInfo({ selectedProductID, data, showAlert }) {
   }
 
   return (
-    <div>
-      <Stack spacing={2}>
-        {/**Main Product Details */}
-        <Stack spacing={3} sx={{ ...classes.detailsContainer }}>
-          <Stack spacing={1}>
-            <Typography variant="sectionTitle">{data.product_name}</Typography>
+    <Stack spacing={0} sx={{ height: "100%" }}>
+      {/**Main Product Details */}
+      <Stack spacing={1.5} sx={{ ...classes.detailsContainer }}>
+        <Stack spacing={1}>
+          <Typography variant="sectionTitle">{data.product_name}</Typography>
 
-            {/**Rating /  Amt Sold */}
-            <Stack
-              direction={"row"}
-              spacing={1}
-              sx={{ display: "flex", alignItems: "center", gap: "8px" }}
-            >
-              {/**RATING*/}
-              <Box sx={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                <Box>
-                  <Typography variant="sectionTitleSmall" color="primary">
-                    {ratingData.rating !== 0
-                      ? ratingData.rating.toFixed(1)
-                      : "N/A"}
-                  </Typography>
-                </Box>
-                <Rating
-                  name="prodRating"
-                  value={ratingData.rating}
-                  precision={0.5}
-                  spacing={4}
-                  readOnly
-                />
-              </Box>
-
-              <Divider orientation="vertical" variant="middle" flexItem />
-
-              <Box sx={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                {/**AMT SOLD*/}
-
-                <Typography variant="sectionTitleSmall" color="primary">
-                  <NumberFormat value={data.amountSold || 0} isShortened />
-                  &nbsp;
-                  <Typography
-                    variant="subtitle1"
-                    component={"span"}
-                    color={theme.palette.text.eighty}
-                  >
-                    Sold
-                  </Typography>
-                </Typography>
-              </Box>
-            </Stack>
-
-            {data?.is_raw_mat ? <RawMaterialTag /> : ""}
-          </Stack>
-
-          {/**Price */}
-          <Box>
-            {price === 0 ? (
-              data.price !== data.max_price ? (
-                <Typography variant="sectionTitle" color="primary">
-                  <NumberFormat value={data.price} isPeso /> -{" "}
-                  <NumberFormat value={data.max_price} isPeso />
-                </Typography>
-              ) : (
-                <Typography variant="sectionTitle" color="primary">
-                  <NumberFormat value={data.price || 0} isPeso />
-                </Typography>
-              )
-            ) : (
-              <Typography variant="sectionTitle" color="primary">
-                <NumberFormat value={price || 0} isPeso />
-              </Typography>
-            )}
-          </Box>
-        </Stack>
-
-        {/*TODO: ADD SHOP LINK */}
-        <ButtonBase
-          sx={{
-            ...classes.detailsContainer,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "left",
-            gap: "16px",
-          }}
-          onClick={() => {
-            navigate(`/shop/${data.Shop.shopID}`);
-          }}
-        >
-          <img
-            src={
-              data.Shop.logo_img_link
-                ? `${BASE_URL}/${data.Shop.logo_img_link}`
-                : require("../../../../assets/product_placeholder_big.jpg")
-            }
-            style={{
-              height: 50,
-              width: 50,
-              objectFit: "cover",
-              borderRadius: 50,
-            }}
-          />
-
-          <Typography variant="sectionTitleSmall">
-            {data.Shop.shop_name}
-          </Typography>
-        </ButtonBase>
-
-        {/**Product Details */}
-        <Stack spacing={3} sx={{ ...classes.detailsContainer }}>
-          {/**DESCRIPTION */}
-          <Stack spacing={1}>
-            <Typography variant="sectionTitleSmall">Description</Typography>
-            <Typography variant="body1">{data.description}</Typography>
-          </Stack>
-
-          <Divider />
-
-          {/**VARIATIONS */}
-          <Stack spacing={1}>
-            <Typography variant="sectionTitleSmall">Variations</Typography>
-            {/*TODO: MAP VARIATIONS */}
-            <div
-              className="scrollable-content custom-scrollbar"
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                gap: "8px",
-                flexWrap: "nowrap",
-                alignItems: "flex-start",
-                justifyContent: "flex-start",
-                minWidth: "100%",
-                height: 100,
-                overflowX: "auto",
-                overflowY: "hidden",
-              }}
-            >
-              {data?.ProductVariations?.map((variation) => (
-                <div key={variation.prodVariationID} style={{ marginTop: 15 }}>
-                  <VariationContainer
-                    data={variation}
-                    setSelectedVariation={setSelectedVariation}
-                    selectedVariation={selectedVariation}
-                    setVarAmtOnHand={setVarAmtOnHand}
-                    setPrice={setPrice}
-                  />
-                </div>
-              ))}
-            </div>
-          </Stack>
-
-          <Divider />
-
-          {/**QTY */}
-          <Stack
-            spacing={3}
-            direction={"row"}
+          {/**Rating /  Amt Sold */}
+          <Box
             sx={{
               display: "flex",
-              justifyContent: "left",
+              flexDirection: "row",
               alignItems: "center",
+              gap: "8px",
+              flexWrap: "wrap",
             }}
           >
-            <Typography variant="sectionTitleSmall">
-              Quantity{" "}
-              <Typography variant="subtitle1">
-                {varAmtOnHand !== undefined && (
-                  <>
-                    Amount on Hand:{" "}
-                    <NumberFormat value={varAmtOnHand} isShortened />
-                  </>
-                )}
-              </Typography>
-            </Typography>
-            <QuantityInput maxValue={varAmtOnHand} setQty={setQty} />
-          </Stack>
-        </Stack>
+            {/**RATING*/}
+            <Box sx={{ display: "flex", alignItems: "center", gap: "8px" }}>
+              <Box>
+                <Typography variant="sectionTitleSmall" color="primary">
+                  {ratingData.rating !== 0
+                    ? ratingData.rating.toFixed(1)
+                    : "N/A"}
+                </Typography>
+              </Box>
+              <Rating
+                name="prodRating"
+                value={ratingData.rating}
+                precision={0.5}
+                spacing={4}
+                readOnly
+              />
+            </Box>
 
-        {/**Add To Cart Btn */}
-        <Stack spacing={3} sx={{ display: "flex", justifyContent: "end" }}>
-          <Box sx={{ marginLeft: "auto" }}>
-            <ButtonAddToCart
-              onClickAction={handleAddToCart}
-              disable={!selectedVariation || !qty}
-            />
+            <Divider orientation="vertical" variant="middle" flexItem />
+
+            <Box sx={{ display: "flex", alignItems: "center", gap: "8px" }}>
+              {/**AMT SOLD*/}
+
+              <Typography variant="sectionTitleSmall" color="primary">
+                <NumberFormat value={data.amountSold || 0} isShortened />
+                &nbsp;
+                <Typography
+                  variant="subtitle1"
+                  component={"span"}
+                  color={theme.palette.text.eighty}
+                >
+                  Sold
+                </Typography>
+              </Typography>
+            </Box>
+
+            {data?.is_raw_mat ? (
+              <Divider orientation="vertical" variant="middle" flexItem />
+            ) : (
+              ""
+            )}
+            {data?.is_raw_mat ? <RawMaterialTag /> : ""}
           </Box>
         </Stack>
+
+        {/**Price */}
+        <Box>
+          {price === 0 ? (
+            data.price !== data.max_price ? (
+              <Typography variant="sectionTitle" color="primary">
+                <NumberFormat value={data.price} isPeso /> -{" "}
+                <NumberFormat value={data.max_price} isPeso />
+              </Typography>
+            ) : (
+              <Typography variant="sectionTitle" color="primary">
+                <NumberFormat value={data.price || 0} isPeso />
+              </Typography>
+            )
+          ) : (
+            <Typography variant="sectionTitle" color="primary">
+              <NumberFormat value={price || 0} isPeso />
+            </Typography>
+          )}
+        </Box>
       </Stack>
-    </div>
+
+      {/*TODO: ADD SHOP LINK */}
+
+      {/**Product Details */}
+      <Stack spacing={3} sx={{ ...classes.detailsContainer }}>
+        <Divider />
+        {/**VARIATIONS */}
+        <Stack spacing={1}>
+          <Typography variant="sectionTitleSmall">Variations</Typography>
+
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              flexWrap: "wrap",
+              gap: "4px",
+              alignItems: "flex-start",
+              justifyContent: "flex-start",
+              minWidth: "100%",
+            }}
+          >
+            {data?.ProductVariations?.map((variation) => (
+              <div key={variation.prodVariationID} style={{ marginTop: 15 }}>
+                <VariationContainer
+                  data={variation}
+                  setSelectedVariation={setSelectedVariation}
+                  selectedVariation={selectedVariation}
+                  setVarAmtOnHand={setVarAmtOnHand}
+                  setPrice={setPrice}
+                />
+              </div>
+            ))}
+          </div>
+        </Stack>
+        <Divider />
+        {/**QTY */}
+        <Stack
+          spacing={3}
+          direction={"row"}
+          sx={{
+            display: "flex",
+            justifyContent: "left",
+            alignItems: "center",
+          }}
+        >
+          <Typography variant="sectionTitleSmall">
+            Quantity{" "}
+            <Typography variant="subtitle1">
+              {varAmtOnHand !== undefined && (
+                <>
+                  Amount on Hand:{" "}
+                  <NumberFormat value={varAmtOnHand} isShortened />
+                </>
+              )}
+            </Typography>
+          </Typography>
+          <QuantityInput maxValue={varAmtOnHand} setQty={setQty} />
+        </Stack>
+      </Stack>
+
+      {/**Add To Cart Btn */}
+      <Stack spacing={3} sx={{ display: "flex", justifyContent: "end", pt: 3 }}>
+        <Box sx={{ marginLeft: "auto", marginBottom: "auto" }}>
+          <ButtonAddToCart
+            onClickAction={handleAddToCart}
+            disable={!selectedVariation || !qty}
+          />
+        </Box>
+      </Stack>
+    </Stack>
   );
 }
 
 const classes = {
   detailsContainer: {
     backgroundColor: theme.palette.background.paper,
-    p: 2,
+    p: 1,
     borderRadius: 5,
-    maxWidth: 650,
     width: "100%",
   },
 };
@@ -298,13 +261,13 @@ function ButtonAddToCart({ onClickAction, disable }) {
       startIcon={<ShoppingCart />}
       onClick={onClickAction}
       sx={{
-        borderRadius: 5,
-        width: 200,
+        borderRadius: 2,
+        width: 175,
       }}
       disabled={disable}
     >
       {
-        <Typography variant="seeAll" sx={{ color: "inherit", fontSize: 18 }}>
+        <Typography variant="seeAll" sx={{ color: "inherit", fontSize: 16 }}>
           Add To Cart
         </Typography>
       }
