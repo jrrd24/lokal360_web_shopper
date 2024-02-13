@@ -10,15 +10,18 @@ import React from "react";
 import { BASE_URL } from "../../api/Api";
 import theme from "../../Theme";
 import NumberFormat from "../../utils/NumberFormat";
+import { useNavigate } from "react-router-dom";
 
 const ProdCategoryContainer = ({ data, color }) => {
   let {
+    id = data?.categoryID,
     name = data?.category_name,
     image = `${BASE_URL}/${data?.icon_file_path}`,
   } = data || {};
 
   var colorMain = color || theme.palette.primary.main;
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const navigate = useNavigate();
 
   const classes = {
     main: {
@@ -56,6 +59,9 @@ const ProdCategoryContainer = ({ data, color }) => {
 
   return (
     <ButtonBase
+      onClick={() => {
+        navigate(`/search?category=${name}&catID=${id}`);
+      }}
       sx={{
         width: isSmallScreen ? 130 : 150,
         //change ripple color
@@ -73,7 +79,6 @@ const ProdCategoryContainer = ({ data, color }) => {
           src={image ? image : require("../../assets/product_placeholder.jpg")}
           sx={{ ...classes.image }}
           alt="logo"
-          
         />
 
         {/*Details */}

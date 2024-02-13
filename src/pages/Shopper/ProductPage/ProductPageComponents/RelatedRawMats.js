@@ -48,7 +48,7 @@ function RelatedRawMats({ categoryID }) {
 
       {productData.length !== 0 ? (
         <Swiper
-          slidesPerView={1.75}
+          slidesPerView={1.5}
           spaceBetween={8}
           lazy={true}
           navigation={true}
@@ -58,15 +58,15 @@ function RelatedRawMats({ categoryID }) {
           }}
           breakpoints={{
             400: {
-              slidesPerView: 2.25,
+              slidesPerView: 1.75,
               spaceBetween: 20,
             },
             640: {
-              slidesPerView: 2.75,
+              slidesPerView: 2.25,
               spaceBetween: 20,
             },
             768: {
-              slidesPerView: 3.75,
+              slidesPerView: 3.25,
               spaceBetween: 10,
             },
             1024: {

@@ -1,6 +1,7 @@
 import { Box, ButtonBase, Typography, useMediaQuery } from "@mui/material";
 import React from "react";
 import theme from "../../Theme";
+import { useNavigate } from "react-router-dom";
 
 const HomepageLinkContainer = ({
   title,
@@ -13,11 +14,22 @@ const HomepageLinkContainer = ({
   svgRight,
   containerLeft,
   containerRight,
+  searchFilter,
 }) => {
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const isMd = useMediaQuery(theme.breakpoints.down("md"));
+  const navigate = useNavigate();
   return (
     <ButtonBase
+      onClick={
+        searchFilter === "Raw Materials"
+          ? () => {
+              navigate(`/search?ptype=${searchFilter}`);
+            }
+          : () => {
+              navigate(`/search?type=${searchFilter}`);
+            }
+      }
       sx={{
         width: "100%",
         ...classes.container,

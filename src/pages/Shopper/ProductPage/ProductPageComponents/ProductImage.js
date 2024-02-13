@@ -12,7 +12,7 @@ function ProductImage({ thumbnail, thumbnailPath }) {
               src={
                 thumbnail
                   ? thumbnailPath
-                  : require("../../../../assets/placeholder.png")
+                  : require("../../../../assets/product_placeholder.jpg")
               }
               alt={"shop thumbnail"}
               style={{ ...classes.thumbnail }}

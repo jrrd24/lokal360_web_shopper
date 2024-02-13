@@ -31,7 +31,7 @@ function ShopContainer({ data }) {
     navigate(`/shop/${shopID}`);
   };
 
-  const width = isSmallScreen ? "100%" : 400;
+  const width = "100%";
   return (
     <ButtonBase
       onClick={onClick}

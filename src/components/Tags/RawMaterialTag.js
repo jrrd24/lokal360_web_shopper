@@ -6,12 +6,13 @@ import { Grass } from "@mui/icons-material";
 function RawMaterialTag({ small }) {
   const color = theme.palette.secondary.main;
   const bgColor = `${color}1A`;
+  const textColor = "white";
   return (
     <div>
       <Box
         sx={{
           border: `2px solid ${color}`,
-          maxWidth: small ? 40 : 150,
+          maxWidth: 150,
           textAlign: "center",
           backgroundColor: bgColor,
           borderRadius: 2,
@@ -21,22 +22,19 @@ function RawMaterialTag({ small }) {
           gap: "8px",
           px: 0.5,
           userSelect: "none",
-          backgroundColor: theme.palette.background.paper,
+          backgroundColor: small ? color : theme.palette.background.paper,
         }}
       >
-        <Grass sx={{ color: color }} />
-        {small ? (
-          ""
-        ) : (
-          <Typography
-            variant="subtitle1"
-            color={color}
-            fontWeight={600}
-            fontSize={16}
-          >
-            Raw Material
-          </Typography>
-        )}
+        <Grass sx={{ color: small ? textColor : color }} />
+
+        <Typography
+          variant="subtitle1"
+          color={small ? textColor : color}
+          fontWeight={600}
+          fontSize={16}
+        >
+          Raw Material
+        </Typography>
       </Box>
     </div>
   );

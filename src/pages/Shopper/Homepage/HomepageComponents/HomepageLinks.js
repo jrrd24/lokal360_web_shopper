@@ -22,6 +22,7 @@ const HomepageLinks = () => {
             title={"Local Products"}
             subtitle={"Find Local Products that suits you"}
             svgLink={ProductsSVG}
+            searchFilter={"Product"}
             svgHeight={110}
             svgHeightMd={100}
             svgHeightSm={75}
@@ -33,6 +34,7 @@ const HomepageLinks = () => {
             title={"Raw Materials"}
             subtitle={"Create with Raw Materials"}
             svgLink={RawMatsSVG}
+            searchFilter={"Raw Materials"}
             svgHeight={130}
             svgHeightMd={110}
             svgHeightSm={85}
@@ -46,6 +48,7 @@ const HomepageLinks = () => {
             title={"Shops"}
             subtitle={"Support Local Businesses"}
             svgLink={StoreSVG}
+            searchFilter={"Shop"}
             svgHeight={120}
             svgHeightMd={110}
             svgHeightSm={85}
@@ -59,6 +62,7 @@ const HomepageLinks = () => {
             title={"Growing Startups"}
             subtitle={"Explore Upcoming Businesses"}
             svgLink={UpcomingSVG}
+            searchFilter={"Quick Sellers"}
             svgHeight={120}
             svgHeightMd={110}
             svgHeightSm={85}

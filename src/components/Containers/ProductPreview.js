@@ -49,7 +49,28 @@ function ProductPreview({ data, containerStyles }) {
         },
       }}
     >
-      <Box sx={{ ...classes.main }}>
+      <Box
+        sx={{
+          ...classes.main,
+          border: `solid ${isRawMat ? "3px" : "1px"} ${
+            isRawMat
+              ? `${theme.palette.secondary.main}66`
+              : theme.palette.text.ten
+          }`,
+          borderBottom: `solid ${isRawMat ? "3px" : "3px"} ${
+            isRawMat
+              ? `${theme.palette.secondary.main}66`
+              : theme.palette.text.ten
+          }`,
+          "&:hover": {
+            borderBottom: `solid 3px ${
+              isRawMat
+                ? theme.palette.secondary.main
+                : theme.palette.primary.main
+            }`,
+          },
+        }}
+      >
         {/*Prod Image */}
         <Box
           sx={{
@@ -59,7 +80,7 @@ function ProductPreview({ data, containerStyles }) {
           }}
         >
           {isRawMat ? (
-            <Box sx={{ position: "absolute", top: 10, left: 10, zIndex: 1 }}>
+            <Box sx={{ position: "absolute", top: 0, left: 0, zIndex: 1 }}>
               <RawMaterialTag small />
             </Box>
           ) : (
@@ -123,12 +144,7 @@ const classes = {
     backgroundColor: `${theme.palette.background.paper}`,
     borderRadius: "10px",
     minWidth: "100%",
-    border: `solid 1px ${theme.palette.text.ten}`,
-    borderBottom: `solid 3px ${theme.palette.text.ten}`,
     textAlign: "left",
-    "&:hover": {
-      borderBottom: `solid 3px ${theme.palette.primary.main}`,
-    },
   },
 
   imageContainer: {

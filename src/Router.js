@@ -17,8 +17,8 @@ import Cart from "./pages/Shopper/Cart/Cart.js";
 import Checkout from "./pages/Shopper/Checkout/Checkout.js";
 import MyAddresses from "./pages/ShopperTools/MyAddresses/MyAddresses.js";
 import MyOrders from "./pages/ShopperTools/MyOrders/MyOrders.js";
-import SearchResult from "./pages/Shopper/SearchResult/SearchResult.js";
 import Register from "./pages/Register/Register.js";
+import Search from "./pages/Shopper/Search/Search.js";
 import { useLayoutEffect } from "react";
 
 const Wrapper = ({ children }) => {
@@ -49,7 +49,8 @@ function Router() {
             <Route path="/profile/" element={<Profile />} />
             <Route path="/profile/my_addresses" element={<MyAddresses />} />
             <Route path="/profile/my_orders" element={<MyOrders />} />
-            <Route path="/search/:query" exact element={<SearchResult />} />
+            {/* <Route path="/search/:query" exact element={<SearchResult />} /> */}
+            <Route path="/search" exact element={<Search />} />
           </Route>
         </Route>
 

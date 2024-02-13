@@ -33,57 +33,61 @@ const ShopBestSellers = ({ selectedShopID }) => {
 
   return (
     <div>
-      <Stack spacing={2} direction={"column"} sx={{ ...classes.container }}>
-        {/*Section Name */}
-        <Box direction={"row"} sx={{ ...theme.components.box.sectionName }}>
-          <Typography variant="sectionTitle">Best Sellers</Typography>
-        </Box>
+      {productData.length > 0 ? (
+        <Stack spacing={2} direction={"column"} sx={{ ...classes.container }}>
+          {/*Section Name */}
+          <Box direction={"row"} sx={{ ...theme.components.box.sectionName }}>
+            <Typography variant="sectionTitle">Best Sellers</Typography>
+          </Box>
 
-        <Swiper
-          slidesPerView={1.75}
-          spaceBetween={8}
-          lazy={true}
-          navigation={true}
-          pagination={{
-            clickable: true,
-            dynamicBullets: true,
-          }}
-          breakpoints={{
-            400: {
-              slidesPerView: 2.25,
-              spaceBetween: 20,
-            },
-            640: {
-              slidesPerView: 2.75,
-              spaceBetween: 20,
-            },
-            768: {
-              slidesPerView: 3.75,
-              spaceBetween: 10,
-            },
-            1024: {
-              slidesPerView: 4.75,
-              spaceBetween: 10,
-            },
-          }}
-          modules={[Pagination, Navigation]}
-          style={{
-            "--swiper-pagination-color": theme.palette.primary.main,
-            "--swiper-pagination-bullet-size": "10px",
-            "--swiper-navigation-size": "25px",
-            "--swiper-navigation-top-offset": "97%",
-            "--swiper-navigation-sides-offset": "10px",
-            "--swiper-navigation-color": theme.palette.primary.main,
-            paddingBottom: 45,
-          }}
-        >
-          {productData.map((product) => (
-            <SwiperSlide>
-              <ProductPreview key={product.productID} data={product} />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </Stack>
+          <Swiper
+            slidesPerView={1.75}
+            spaceBetween={8}
+            lazy={true}
+            navigation={true}
+            pagination={{
+              clickable: true,
+              dynamicBullets: true,
+            }}
+            breakpoints={{
+              400: {
+                slidesPerView: 2.25,
+                spaceBetween: 20,
+              },
+              640: {
+                slidesPerView: 2.75,
+                spaceBetween: 20,
+              },
+              768: {
+                slidesPerView: 3.75,
+                spaceBetween: 10,
+              },
+              1024: {
+                slidesPerView: 4.75,
+                spaceBetween: 10,
+              },
+            }}
+            modules={[Pagination, Navigation]}
+            style={{
+              "--swiper-pagination-color": theme.palette.primary.main,
+              "--swiper-pagination-bullet-size": "10px",
+              "--swiper-navigation-size": "25px",
+              "--swiper-navigation-top-offset": "97%",
+              "--swiper-navigation-sides-offset": "10px",
+              "--swiper-navigation-color": theme.palette.primary.main,
+              paddingBottom: 45,
+            }}
+          >
+            {productData.map((product) => (
+              <SwiperSlide>
+                <ProductPreview key={product.productID} data={product} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </Stack>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

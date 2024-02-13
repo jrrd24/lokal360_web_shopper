@@ -5,11 +5,13 @@ import { useRequestProcessor } from "../../../../hooks/useRequestProcessor";
 import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
 import { LoadingCircle } from "../../../../components/Loading/Loading";
 import theme from "../../../../Theme";
+import { useNavigate } from "react-router-dom";
 
 function AllProducts() {
   //API CALL GET ALL ACTIVE SITEWIDE ADS
   const { useCustomQuery } = useRequestProcessor();
   const axiosPrivate = useAxiosPrivate();
+  const navigate = useNavigate();
 
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -48,6 +50,9 @@ function AllProducts() {
       <Button
         variant="outlined"
         fullWidth
+        onClick={() => {
+          navigate("/search?type=Product");
+        }}
         sx={{
           maxWidth: 300,
           background: theme.palette.background.paper,

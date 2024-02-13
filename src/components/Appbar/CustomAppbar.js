@@ -88,7 +88,7 @@ ScrollTop.propTypes = {
 };
 
 const CustomAppbar = React.memo(
-  ({ component: MainComponent, isCart, isHome }, props) => {
+  ({ component: MainComponent, isCart, fullwidth }, props) => {
     const navigate = useNavigate();
     return (
       <React.Fragment>
@@ -165,25 +165,27 @@ const CustomAppbar = React.memo(
           </AppBar>
         </HideOnScroll>
         <Toolbar id="back-to-top-anchor" />
-        <Container>
-          {/*MAIN */}
+
+        {/*MAIN */}
+        {fullwidth ? (
           <Box component="main" sx={{ ...classes.mainComponentContainer }}>
             {MainComponent && (
-              <Box
-                sx={{
-                  ...classes.mainComponent,
-                  p: 3,
-                  "@media (max-width: 600px)": {
-                    p: 0,
-                    py: 3,
-                  },
-                }}
-              >
+              <Box sx={{ ...classes.mainComponent }}>
                 <MainComponent />
               </Box>
             )}
           </Box>
-        </Container>
+        ) : (
+          <Container>
+            <Box component="main" sx={{ ...classes.mainComponentContainer }}>
+              {MainComponent && (
+                <Box sx={{ ...classes.mainComponent }}>
+                  <MainComponent />
+                </Box>
+              )}
+            </Box>
+          </Container>
+        )}
 
         <Footer />
 
@@ -232,6 +234,11 @@ const classes = {
     textAlign: "center",
     margin: "0 auto",
     maxWidth: "2000px",
+    p: 3,
+    "@media (max-width: 600px)": {
+      p: 0,
+      py: 3,
+    },
   },
 };
 

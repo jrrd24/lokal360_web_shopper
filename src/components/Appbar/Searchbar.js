@@ -18,7 +18,7 @@ function Searchbar() {
   const handleEnterKey = (e) => e.key === "Enter" && handleSearchClick();
 
   const handleSearchClick = () => {
-    navigate(`/search/${encodeURIComponent(searchValue)}`);
+    navigate(`/search?query=${searchValue}`);
   };
 
   return (
@@ -56,6 +56,7 @@ const classes = {
     alignSelf: "center",
     display: { xs: "none", sm: "flex" },
     justifyContent: "space-around",
+    userSelect: "none",
     "@media (max-width: 900px)": {
       width: 300,
     },

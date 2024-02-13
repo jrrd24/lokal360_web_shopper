@@ -94,7 +94,7 @@ function ProductPageContent({ selectedProductID, setProductName }) {
             >
               <ProductImage
                 thumbnailPath={product_thumbnail}
-                thumbnail={Images[0].prod_image}
+                thumbnail={Images[0]?.prod_image}
               />
               <Box sx={{ width: "100%" }}>
                 <ProductInfo

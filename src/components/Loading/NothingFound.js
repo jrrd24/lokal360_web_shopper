@@ -14,6 +14,7 @@ const NothingFound = () => {
         textAlign: "center",
         alignItems: "center",
         justifyContent: "center",
+        userSelect: "none",
       }}
     >
       <img src={emptySVG} alt="Nothing Found" style={{ width: 200 }} />

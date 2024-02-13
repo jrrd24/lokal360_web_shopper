@@ -1,4 +1,11 @@
-import { Box, Container, Grid, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Container,
+  Grid,
+  Pagination,
+  Stack,
+  Typography,
+} from "@mui/material";
 import ProductPreview from "../../../../components/Containers/ProductPreview";
 import React, { useEffect, useState } from "react";
 import { useRequestProcessor } from "../../../../hooks/useRequestProcessor";
@@ -51,9 +58,7 @@ function AllShopProducts({ selectedShopID }) {
         />
       </Stack>
 
-      <Box
-        sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
-      >
+      <Stack spacing={2}>
         {isLoading ? (
           <LoadingCircle />
         ) : productsData.length !== 0 ? (
@@ -67,7 +72,15 @@ function AllShopProducts({ selectedShopID }) {
         ) : (
           <NothingFound />
         )}
-      </Box>
+
+        {productsData.length !== 0 ? (
+          <Stack alignItems="center">
+            <Pagination count={1} color="primary" shape="rounded" />
+          </Stack>
+        ) : (
+          ""
+        )}
+      </Stack>
     </Stack>
   );
 }
